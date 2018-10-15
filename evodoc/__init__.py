@@ -1,19 +1,37 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from sqlalchemy import MetaData
 
-def create_app():
-    """
-    Application factory, just something that creates your new favorite API
-    """
+class Evodoc(Flask):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.db = None
 
-    app = Flask(__name__)
+    @staticmethod
+    def create_app():
+        """
+        Application factory, just something that creates your new favorite API
+        """
 
-    app.config.from_object("evodoc.conf")
+        app = Evodoc(__name__)
 
-    #Assigning app to SqlAlchemy
-    from evodoc.models import db
-    db.init_app(app)
+        app.config.from_object("evodoc.conf")
 
-    from evodoc.api.home import homeprint
-    app.register_blueprint(homeprint)
+        from evodoc.basemodel import IdModel, naming_convention
+        app.db = SQLAlchemy(app, model_class=IdModel,metadata=MetaData(naming_convention=naming_convention))
 
-    return app
+        from evodoc.api.home import homeprint
+        app.register_blueprint(homeprint)
+
+        migrate = Migrate(app, app.db, render_as_batch=True)
+
+        return app
+
+app = Evodoc.create_app()
+
+import evodoc.models
+
+__all__ = [
+    'app'
+]

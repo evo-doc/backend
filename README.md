@@ -11,16 +11,16 @@
 
 ## How to run app as developer
 
-1. Create virtualenv for >=python3.6
-2. Install all requirements by typing `pip install -r requirements.txt`
+1. Create and or enter into virtualenv for >=python3.6
+2. Just run `pip install -e .`
 3. Enter into your virtualenv or edit `venv/bin/acitvate` script
 4. Export these values or write them into activation script:
     ```
-    export FLASK_APP="evodoc:create_app()"
+    export FLASK_APP=evodoc
     export FLASK_DEBUG=1
     export FLASK_ENV="development"
     ```
-5. (only if you are editing `activate`): save your script and enter into venv
+5. (only if you are editing `activate`): save your script and re-enter into venv
 6. Just type `flask run`
 7. ???
 8. Profit
