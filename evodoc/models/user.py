@@ -10,5 +10,5 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
     password = sa.Column(sa.String(128), nullable=False)
     active = sa.Column(sa.Boolean)
     activated = sa.Column(sa.Boolean)
-    user_type_id = sa.Column(sa.Integer, sa.ForeignKey("user_type.id"))
+    role_id = sa.Column(sa.Integer, sa.ForeignKey("role.id"))
     tokens = app.db.relationship('UserToken', backref='user', lazy=True)
