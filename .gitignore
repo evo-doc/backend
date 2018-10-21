@@ -110,4 +110,9 @@ venv.bak/
 /local
 /pyvenv.cfg
 /share
+
+# private conf file
 conf.py
+
+# VS code
+.vscode
