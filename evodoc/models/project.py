@@ -5,7 +5,7 @@ from evodoc.models.project_to_user import ProjectToUser
 
 class Project(app.db.Model, SoftDelete, CreateUpdate):
     __tablename__ = "project"
-    name = sa.Column(sa.String(50))
+    name = sa.Column(sa.String(50), nullable=False)
     description = sa.Column(sa.Text)
     active = sa.Column(sa.Boolean, default=True)
     modules = app.db.relationship('Module', backref='project', lazy=True)
