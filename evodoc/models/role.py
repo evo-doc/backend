@@ -1,7 +1,10 @@
 from evodoc import app
 import sqlalchemy as sa
+from evodoc.models.role_to_permission import RoleToPermission
 
 class Role(app.db.Model):
     __tablename__ = "role"
     name = sa.Column(sa.String(50), unique=True)
     users = app.db.relationship('User', backref='role', lazy=True)
+    permissions = app.db.relationship('Permission', secondary=RoleToPermission, lazy='subquery',
+        backref=app.db.backref('role', lazy=True))
