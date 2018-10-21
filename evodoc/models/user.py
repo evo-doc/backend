@@ -1,4 +1,3 @@
-import datetime
 from evodoc import app
 import sqlalchemy as sa
 from evodoc.basemodel import SoftDelete, CreateUpdate
