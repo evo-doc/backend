@@ -7,4 +7,9 @@ class Package(app.db.Model, SoftDelete, CreateUpdate):
     name = sa.Column(sa.String(50), unique=True)
     description = sa.Column(sa.Text)
     url = sa.Column(sa.String, unique=True)
-    active = sa.Column(sa.Boolean)        
+    active = sa.Column(sa.Boolean, default=True)
+    
+    def __init__ (self, name=None, description=None, url=None):
+        self.name=name
+        self.description=description
+        self.url=url
