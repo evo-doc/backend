@@ -4,7 +4,7 @@ from evodoc.basemodel import SoftDelete, CreateUpdate
 
 class Package(app.db.Model, SoftDelete, CreateUpdate):
     __tablename__ = "package"
-    name = sa.Column(sa.String(50))
+    name = sa.Column(sa.String(50), unique=True)
     description = sa.Column(sa.Text)
-    url = sa.Column(sa.String)
-    active = sa.Column(sa.Boolean)
+    url = sa.Column(sa.String, unique=True)
+    active = sa.Column(sa.Boolean)        
