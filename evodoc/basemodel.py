@@ -1,5 +1,6 @@
 from flask_sqlalchemy import Model, SQLAlchemy
 import sqlalchemy as sa
+import datetime
 from sqlalchemy import MetaData
 from sqlalchemy.ext.declarative import declared_attr
 
@@ -27,3 +28,11 @@ class IdModel(Model):
     def getById(cls, id):
         entity = cls.query.filter_by(id=id).first()
         return entity
+
+# class declaring softdelete params (model mixin)
+class SoftDelete(object):
+    delete = sa.Column(sa.DateTime, nullable=True)
+
+class CreateUpdate(object):
+    create = sa.Column(sa.DateTime, default=datetime.datetime.utcnow())
+    update = sa.Column(sa.DateTime, default=datetime.datetime.utcnow())
