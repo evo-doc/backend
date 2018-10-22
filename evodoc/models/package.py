@@ -13,3 +13,18 @@ class Package(app.db.Model, SoftDelete, CreateUpdate):
         self.name=name
         self.description=description
         self.url=url
+
+    def serialize(self):
+        """
+        Serialize object for json
+            :param self:
+        """
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description':self.description,
+            'url': self.url,
+            'active': self.active,
+            'created': self.create,
+            'updated': self.update
+        }

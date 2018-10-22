@@ -22,3 +22,19 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
         self.email=email
         self.password=password # hashed TBA
         self.role_id=role_id
+
+    def serialize(self):
+        """
+        Serialize object for json
+            :param self:
+        """
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'role_id': self.role_id,
+            'activated':self.activated,
+            'active': self.active,
+            'created': self.create,
+            'updated': self.update
+        }

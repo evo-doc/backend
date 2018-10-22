@@ -15,3 +15,19 @@ class Module(app.db.Model, SoftDelete, CreateUpdate):
         self.description=description
         self.project_id=project_id
         self.owner_id=owner_id
+
+    def serialize(self):
+        """
+        Serialize object for json
+            :param self:
+        """
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description':self.description,
+            'owner_id': self.owner_id,
+            'project_id': self.project_id,
+            'active': self.active,
+            'created': self.create,
+            'updated': self.update
+        }

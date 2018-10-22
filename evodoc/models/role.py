@@ -13,3 +13,14 @@ class Role(app.db.Model):
     def __init__ (self, name=None, description=None):
         self.name=name
         self.description=description
+
+    def serialize(self):
+        """
+        Serialize object for json
+            :param self:
+        """
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description':self.description,
+        }
