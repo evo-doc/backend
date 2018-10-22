@@ -18,8 +18,8 @@ class Evodoc(Flask):
 
         app.config.from_object("evodoc.conf")
 
-        from evodoc.basemodel import IdModel, naming_convention
-        app.db = SQLAlchemy(app, model_class=IdModel,metadata=MetaData(naming_convention=naming_convention))
+        from evodoc.basemodel import IdModel, naming_convention, GetOrQuery
+        app.db = SQLAlchemy(app, model_class=IdModel, query_class=GetOrQuerry, metadata=MetaData(naming_convention=naming_convention))
 
         from evodoc.api.home import homeprint
         app.register_blueprint(homeprint)
