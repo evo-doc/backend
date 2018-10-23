@@ -23,7 +23,7 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
                                    lazy='subquery',
                                    backref=app.db.backref('user', lazy=True))
 
-    def __init__(self, name=None, email=None, password=None, role_id=None):
+    def __init__(self, name=None, email=None, password=None, role_id=None):        
         self.name = name
         self.email = email
         self.password = app.bcrypt.generate_password_hash(password)

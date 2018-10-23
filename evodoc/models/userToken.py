@@ -4,7 +4,6 @@ from evodoc.basemodel import CreateUpdate
 from datetime import datetime, timedelta
 from uuid import uuid4
 
-
 class UserToken(app.db.Model, CreateUpdate):
     __tablename__ = "user_token"
     user_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"))

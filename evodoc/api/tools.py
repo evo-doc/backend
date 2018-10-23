@@ -3,7 +3,6 @@ from evodoc.exception import ApiException
 from evodoc.models import UserToken
 from datetime import datetime
 
-
 def serialize_list(l):
     """
     Serialize data in list, for each class in list calls its
