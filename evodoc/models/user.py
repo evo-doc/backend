@@ -21,7 +21,7 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
     projects = app.db.relationship('Project', secondary=ProjectToUser, lazy='subquery',
                                    backref=app.db.backref('owning_user', lazy=True))
 
-    def __init__(self, name=None, email=None, password=None, role_id=None):
+    def __init__(self, name=None, email=None, password=None, role_id=None):        
         self.name = name
         self.email = email
         self.password = password  # hashed TBA
@@ -44,7 +44,6 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
         }
 
     def createToken(self):
-<<<<<<< HEAD
         token = str(uuid4())
 
         # Check if token is unique
@@ -52,15 +51,13 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
             token = str(uuid4())
 
         newTokenCls = UserToken(user_id=self.id, token=token)
-=======
         token = str(self.user_id).zfill(10) + str(uuid4())
 
         # Check if token is unique
-        while (UserToken.query.filter_by(token=new_token).count() != 0):
-            token = str(user_id).zfill(10) + str(uuid4())
+        while (UserToken.query.filter_by(token=token).count() != 0):
+            token = str(uuid4())
 
-        newTokenCls = UserToken(user_id=self.id, token=new_token)
->>>>>>> going to bed
+        newTokenCls = UserToken(user_id=self.id, token=token)
 
         app.db.session.add(newTokenCls)
         app.db.session.commit()

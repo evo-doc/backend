@@ -3,7 +3,6 @@ from flask import request
 from evodoc.api.tools import response_ok, validate_token
 from evodoc.api.auth import auth
 
-
 @auth.route('/signout', methods=['GET'])
 def signOut():
     header = request.headers.get('Authorization')
