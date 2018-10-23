@@ -1,5 +1,7 @@
 from flask import jsonify
 from evodoc.exception import ApiException
+from evodoc.models import UserToken
+from datetime import datetime
 
 def serialize_list(l):
     """
@@ -34,9 +36,15 @@ def validate_token(token):
     Validate token and return its instance
         :param token:
     """
-    return token
+    t = UserToken.query.filter_by(token=token).first()
+    if t==None:
+        raise ApiException(401,"Unauthorised user (missing or outdated token)")
 
-def validate_data(data, expected_values = [], message):
+    if t.update <= datetime.utcnow():
+        t=UserToken.createSuccessor()
+    return t.token
+
+def validate_data(data, expected_values = [], message="Default error message."):
     """
     validate data by given array of keys
     """

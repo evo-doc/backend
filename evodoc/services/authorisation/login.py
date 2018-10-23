@@ -1,7 +1,9 @@
 from evodoc.models import User
+from evodoc.exception import ApiException
 
-def login(passwd, nameOrEmail):
-    user = User.getByNameOrEmail(nameOrEmail)
-    #check passwd TBA
+def login(nameOrEmail, passwd):
+    user = User.query.getByNameOrEmail(nameOrEmail)
+    if user.password!=passwd: #TBA
+        raise ApiException(400,"Sign in data are invalid.")
     
-    return user.createToken()
+    return user.createToken().token
