@@ -23,13 +23,15 @@ class Evodoc(Flask):
         app.bcrypt = Bcrypt(app);
 
         from evodoc.basemodel import IdModel, naming_convention, GetOrQuery
-        app.db = SQLAlchemy(app, model_class=IdModel, query_class=GetOrQuerry, metadata=MetaData(naming_convention=naming_convention))
+        app.db = SQLAlchemy(app, model_class=IdModel, query_class=GetOrQuery, metadata=MetaData(naming_convention=naming_convention))
 
-        from evodoc.api.home import homeprint
-        app.register_blueprint(homeprint)
 
         migrate = Migrate(app, app.db, render_as_batch=True)
 
+        from evodoc.api import homeprint, auth
+        app.register_blueprint(homeprint)
+        app.register_blueprint(auth)
+        
         import evodoc.models
 
         return app
