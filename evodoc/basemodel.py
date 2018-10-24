@@ -42,33 +42,33 @@ class GetOrQuery(BaseQuery):
     def get_or(self, ident, default=None):
         return self.get(ident) or default
 
-    def get(self, ident, RiseFlag=True):
+    def getWithFlag(self, ident, RiseFlag=True):
         tmp = self.get(ident)
-        if tmp == None:
+        if tmp == None and RiseFlag:
             raise DbException(400,"id")
         return tmp
         
     def getByName(self, name, RiseFlag=True):
-        tmp = self.query.filter_by(name=name).first()
-        if tmp == None:
+        tmp = self.filter_by(name=name).first()
+        if tmp == None and RiseFlag:
             raise DbException(400,"name")
         return tmp
         
         
     def getByEmail(self, email, RiseFlag=True):
-        tmp = self.query.filter_by(email=email).first()
-        if tmp == None:
+        tmp = self.filter_by(email=email).first()
+        if tmp == None and RiseFlag:
             raise DbException(400,"email")
         return tmp
         
 
     def getByNameOrEmail(self, nameOrEmail, RiseFlag=True):
         if '@' in nameOrEmail:
-            return self.query.filter_by(email=nameOrEmail).first()
+            return self.filter_by(email=nameOrEmail).first()
         else:
-            return self.query.filter_by(name=nameOrEmail).first()
+            return self.filter_by(name=nameOrEmail).first()
 
-        if tmp == None:
+        if tmp == None and RiseFlag:
             raise DbException(400,"nameOrEmail")
         return tmp
         
