@@ -5,9 +5,10 @@
 ## Contribution
 
 1. Use virtualenv for development (ie. `source venv/bin/activate`)
-2. Use branches, each feature should have its own branch, when you think everything is done just create PR to master. You can freely merge things into dev branch.
-3. When you are coming back to your branch, first of all do `git rebase master` to catch up with other contributors.
-4. Write clean and easy-to-read code, also use documentation string on each function/method/class. :)
+2. Install all dev requirements using `pip install -r dev-requirements.txt`
+3. Use branches, each feature should have its own branch, when you think everything is done just create PR to master. You can freely merge things into dev branch.
+4. When you are coming back to your branch, first of all do `git rebase master` to catch up with other contributors.
+5. Write clean and easy-to-read code, also use documentation string on each function/method/class. :)
 
 ## How to run app as developer
 
