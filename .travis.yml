@@ -5,14 +5,10 @@ python:
 matrix:
   include:
     - python: 3.7
-      dist: xenial
+      dist: xenial s
       sudo: true
 install:
   - pip install -e .
   - pip install flake8
 script:
-<<<<<<< HEAD
   - flake8 evodoc --count
-=======
-  - flake8 evodoc --count
->>>>>>> d6bb021d524da711576c36dab008a490fb7fcb25
