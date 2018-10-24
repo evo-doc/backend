@@ -4,7 +4,7 @@ python:
 matrix:
   include:
     - python: 3.7
-      dist: xenial s
+      dist: xenial
       sudo: true
 install:
   - pip install -e .
