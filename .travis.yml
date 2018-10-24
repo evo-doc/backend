@@ -10,9 +10,9 @@ install:
   - pip install -e .
 addons:
   sonarcloud:
-    organization: "evodocbackend" # the key of the org you chose at step #3
+    organization: "evodoc" # the key of the org you chose at step #3
     token:
-      secure: SONAR_TOKEN
+      secure: "CVK1DEz+hYFh6lbWgDHdLMenbnfxFzO+794UpVGRJ0Vs7txax3Ak0rb4Z4plTVdevelvyC5FymBsH/ZyVpCKg3cnEyMWWPC68keKRWB39uSl2I2WuJ7hnDYYDg7h2sW2cSsbcZXJQAck5Ody1W2ockbnI3ygHS0DCHVB/IZF/gjfxt+mVfeBXosdd9v4M8ViYam8/1KngUbhSW5lCSde3GH1SeIkLWM2eWdNYj5Sr47fT16y5btJ68rZK+OkLCP7ycnZKgZipiE1Qsr1JvPiZ42yIWIZjy7PNM2/WmdrTjaVq5UsPGsfYnrMwc1UkEGruZp7ycqsWi/oBa4C1NyhvFzUABeGqiSq+VlrNosG/vlQ9DZcxuBNZO0b6APRwvASdn40IBKWpyuMyuySkTEc6WXBlfONAwXEvyIKSSflnxNAoqRuccIUvUbbhxyXDLplvMYOq2i5glqT5Ncr+FKbZ/wrVplB4dV+HE4g1nZ+K+sEOHIz2mIrGGSkrhtYar5TpvWNDRpKKqRe0qN43bLXAGJuf/rdtVAP7rbUrcHyjnRF59OjR/t6+uDNDt+UL30yDjPJ5EI9Y8vajoIJR4Fkfpbl7/SG5IarSL+/X7xK/I1GnwQoIrikPmwOaAXZYTNE0QQeGaQ/z31GaDzLw0DxItg0WQC/nQHjtEzMjCAySR0="
 script:
   # other script steps might be done before running the actual analysis
   - sonar-scanner
