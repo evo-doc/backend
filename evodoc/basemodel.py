@@ -1,7 +1,6 @@
-from flask_sqlalchemy import Model, SQLAlchemy, BaseQuery
+from flask_sqlalchemy import Model, BaseQuery
 import sqlalchemy as sa
 import datetime
-from sqlalchemy import MetaData
 from sqlalchemy.ext.declarative import declared_attr
 from evodoc.exception.dbException import DbException
 
@@ -13,6 +12,7 @@ naming_convention = {
     "pk": "pk_%(table_name)s"
 }
 
+
 class IdModel(Model):
     @declared_attr
     def id(self):
@@ -21,7 +21,7 @@ class IdModel(Model):
                 type = sa.ForeignKey(base.id)
                 break
         else:
-            type=sa.Integer
+            type = sa.Integer
 
         return sa.Column(type, primary_key=True)
 
@@ -31,12 +31,16 @@ class IdModel(Model):
         return entity
 
 # class declaring softdelete params (model mixin)
+
+
 class SoftDelete(object):
     delete = sa.Column(sa.DateTime, nullable=True)
+
 
 class CreateUpdate(object):
     create = sa.Column(sa.DateTime, default=datetime.datetime.utcnow())
     update = sa.Column(sa.DateTime, default=datetime.datetime.utcnow())
+
 
 class GetOrQuery(BaseQuery):
     def get_or(self, ident, default=None):
@@ -44,31 +48,28 @@ class GetOrQuery(BaseQuery):
 
     def getWithFlag(self, ident, RiseFlag=True):
         tmp = self.get(ident)
-        if tmp == None and RiseFlag:
-            raise DbException(400,"id")
+        if tmp is None and RiseFlag:
+            raise DbException(400, "id")
         return tmp
-        
+
     def getByName(self, name, RiseFlag=True):
         tmp = self.filter_by(name=name).first()
-        if tmp == None and RiseFlag:
-            raise DbException(400,"name")
+        if tmp is None and RiseFlag:
+            raise DbException(400, "name")
         return tmp
-        
-        
+
     def getByEmail(self, email, RiseFlag=True):
         tmp = self.filter_by(email=email).first()
-        if tmp == None and RiseFlag:
-            raise DbException(400,"email")
+        if tmp is None and RiseFlag:
+            raise DbException(400, "email")
         return tmp
-        
 
     def getByNameOrEmail(self, nameOrEmail, RiseFlag=True):
         if '@' in nameOrEmail:
             return self.filter_by(email=nameOrEmail).first()
         else:
             return self.filter_by(name=nameOrEmail).first()
-
-        if tmp == None and RiseFlag:
-            raise DbException(400,"nameOrEmail")
+        tmp = None
+        if tmp is None and RiseFlag:
+            raise DbException(400, "nameOrEmail")
         return tmp
-        

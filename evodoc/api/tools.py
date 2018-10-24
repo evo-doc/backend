@@ -3,12 +3,15 @@ from evodoc.exception import ApiException
 from evodoc.models import UserToken
 from datetime import datetime
 
+
 def serialize_list(l):
     """
-    Serialize data in list, for each class in list calls its serialize method at the end return whole list of serialized values
+    Serialize data in list, for each class in list calls its
+    serialize method at the end return whole list of serialized values
         :param l: List of objects which have serialize method
     """
     return [m.serialize() for m in l]
+
 
 def response_ok_obj(data):
     """
@@ -17,6 +20,7 @@ def response_ok_obj(data):
     """
     return jsonify(data.serialize())
 
+
 def response_ok(data):
     """
     Converts data to json format and return them as server response
@@ -24,12 +28,15 @@ def response_ok(data):
     """
     return jsonify(data)
 
+
 def response_ok_list(data):
     """
-    Converts list to list of serialized values and then send them as json response
+    Converts list to list of serialized values and then send them as
+    json response
         :param data: list of objects with serialize method
     """
     return jsonify(serialize_list(data))
+
 
 def validate_token(token):
     """
@@ -37,20 +44,22 @@ def validate_token(token):
         :param token:
     """
     t = UserToken.query.filter_by(token=token).first()
-    if t==None:
-        raise ApiException(401,"Unauthorised user (missing or outdated token)")
+    if t is None:
+        raise ApiException(
+            401, "Unauthorised user (missing or outdated token)")
 
     if t.update <= datetime.utcnow():
-        t=UserToken.createSuccessor()
+        t = UserToken.createSuccessor()
     return t.token
 
-def validate_data(data, expected_values = [], message="Default error message."):
+
+def validate_data(data, expected_values=[], message="Default error message."):
     """
     validate data by given array of keys
     """
-    missing=[]
+    missing = []
 
-    if data == None or data == {}:
+    if data is None or data == {}:
         raise ApiException(400, "data")
     for value in expected_values:
         if value not in data or data[value] is None or data[value] == {}:

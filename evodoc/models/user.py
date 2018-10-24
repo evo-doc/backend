@@ -5,6 +5,7 @@ from evodoc.models.project_to_user import ProjectToUser
 from uuid import uuid4
 from evodoc.models.userToken import UserToken
 
+
 class User(app.db.Model, SoftDelete, CreateUpdate):
     __tablename__ = "user"
     name = sa.Column(sa.String(50), unique=True)
@@ -14,13 +15,15 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
     activated = sa.Column(sa.Boolean, default=True)
     role_id = sa.Column(sa.Integer, sa.ForeignKey("role.id"))
     tokens = app.db.relationship('UserToken', backref='user', lazy=True)
-    my_projects = app.db.relationship('Project', backref='colaborating_user', lazy=True)
+    my_projects = app.db.relationship(
+        'Project', backref='colaborating_user', lazy=True)
     my_modules = app.db.relationship('Module', backref='user', lazy=True)
     my_packages = app.db.relationship('Package', backref='user', lazy=True)
-    projects = app.db.relationship('Project', secondary=ProjectToUser, lazy='subquery',
-    backref=app.db.backref('user', lazy=True))
+    projects = app.db.relationship('Project', secondary=ProjectToUser,
+                                   lazy='subquery',
+                                   backref=app.db.backref('user', lazy=True))
 
-    def __init__ (self, name=None, email=None, password=None, role_id=None):
+    def __init__(self, name=None, email=None, password=None, role_id=None):
         self.name = name
         self.email = email
         self.password = app.bcrypt.generate_password_hash(password)
