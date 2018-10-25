@@ -1,7 +1,7 @@
-from evodoc.api.auth.authenticated import authenticated
-from evodoc.api.auth.signOut import signOut
-from evodoc.api.auth.signIn import signIn
 from evodoc.api.auth.signUp import signUp
+from evodoc.api.auth.signIn import signIn
+from evodoc.api.auth.signOut import signOut
+from evodoc.api.auth.authenticated import authenticated
 from flask import Blueprint, jsonify
 from evodoc.exception import ApiException, DbException
 
@@ -18,9 +18,10 @@ def __response_err(data):
 
 
 __all__ = [
+    "auth",
     "signUp",
     "signIn",
     "signOut",
     "authenticated",
-    "__response_err"
+    "__response_err",
 ]

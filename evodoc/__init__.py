@@ -31,14 +31,17 @@ class Evodoc(Flask):
 
         migrate = Migrate(app, app.db, render_as_batch=True)  # noqa: F841
 
+        return app
+
+    @staticmethod
+    def registerBlueprints():
         from evodoc.api import homeprint, auth
         app.register_blueprint(homeprint)
         app.register_blueprint(auth)
 
-        return app
-
 
 app = Evodoc.create_app()
+Evodoc.registerBlueprints()
 
 __all__ = [
     'app'
