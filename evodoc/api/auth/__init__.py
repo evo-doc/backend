@@ -1,11 +1,12 @@
-from evodoc.api.auth.signUp import signUp
-from evodoc.api.auth.signIn import signIn
-from evodoc.api.auth.signOut import signOut
-from evodoc.api.auth.authenticated import authenticated
 from flask import Blueprint, jsonify
 from evodoc.exception import ApiException, DbException
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
+
+from evodoc.api.auth.authenticated import authenticated  # noqa F402
+from evodoc.api.auth.signOut import signOut  # noqa F402
+from evodoc.api.auth.signIn import signIn  # noqa F402
+from evodoc.api.auth.signUp import signUp  # noqa F402
 
 
 @auth.errorhandler(ApiException)
