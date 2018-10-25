@@ -1,4 +1,4 @@
-from evodoc.services.authorisation import logout
+from evodoc.services import logout
 from flask import request
 from evodoc.api.tools import response_ok, validate_token
 from evodoc.api.auth import auth
