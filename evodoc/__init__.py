@@ -36,14 +36,14 @@ class Evodoc(Flask):
         app.register_blueprint(homeprint)
         app.register_blueprint(auth)
 
+        import evodoc.models
+
         return app
 
 
 from evodoc.api import homeprint, auth
 app.register_blueprint(homeprint)
 app.register_blueprint(auth)
-
-import evodoc.models
 
 __all__ = [
     'app'
