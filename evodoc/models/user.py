@@ -47,7 +47,7 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
         }
 
     def createToken(self):
-        token = str(uuid4())
+        token = str(self.user_id).zfill(10) + str(uuid4())
 
         # Check if token is unique
         while (UserToken.query.filter_by(token=token).count() != 0):

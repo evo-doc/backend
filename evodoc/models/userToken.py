@@ -58,4 +58,5 @@ class UserToken(app.db.Model, CreateUpdate):
             previous_token_id=self.id)
         app.db.session.add(t)
         app.db.session.commit()
+
         return t
