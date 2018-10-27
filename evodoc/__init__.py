@@ -24,6 +24,7 @@ class Evodoc(Flask):
         app.bcrypt = Bcrypt(app)
 
         from evodoc.basemodel import IdModel, naming_convention, GetOrQuery
+
         app.db = SQLAlchemy(app, model_class=IdModel, query_class=GetOrQuery,
                             metadata=MetaData(
                                 naming_convention=naming_convention
@@ -41,7 +42,9 @@ class Evodoc(Flask):
 
 
 app = Evodoc.create_app()
-Evodoc.registerBlueprints()
+app.registerBlueprints()
+
+import evodoc.models  # noqa F402 F401
 
 __all__ = [
     'app'

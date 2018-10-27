@@ -21,12 +21,13 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
     my_packages = app.db.relationship('Package', backref='user', lazy=True)
     projects = app.db.relationship('Project', secondary=ProjectToUser,
                                    lazy='subquery',
-                                   backref=app.db.backref('user', lazy=True))
+                                   backref=app.db.backref('owning_user',
+                                                          lazy=True))
 
     def __init__(self, name=None, email=None, password=None, role_id=None):
         self.name = name
         self.email = email
-        self.password = app.bcrypt.generate_password_hash(password)
+        self.password = password  # hashed TBA
         self.role_id = role_id
 
     def serialize(self):
@@ -46,7 +47,14 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
         }
 
     def createToken(self):
-        token = str(uuid4())
+        token = str(self.user_id).zfill(10) + str(uuid4())
+
+        # Check if token is unique
+        while (UserToken.query.filter_by(token=token).count() != 0):
+            token = str(uuid4())
+
+        newTokenCls = UserToken(user_id=self.id, token=token)
+        token = str(self.user_id).zfill(10) + str(uuid4())
 
         # Check if token is unique
         while (UserToken.query.filter_by(token=token).count() != 0):

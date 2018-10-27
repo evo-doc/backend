@@ -69,7 +69,5 @@ class GetOrQuery(BaseQuery):
             return self.filter_by(email=nameOrEmail).first()
         else:
             return self.filter_by(name=nameOrEmail).first()
-        tmp = None
-        if tmp is None and RiseFlag:
-            raise DbException(400, "nameOrEmail")
-        return tmp
+        raise DbException(400, "nameOrEmail")
+        return None
