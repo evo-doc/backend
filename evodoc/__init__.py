@@ -44,7 +44,7 @@ class Evodoc(Flask):
 app = Evodoc.create_app()
 app.registerBlueprints()
 
-import evodoc.models
+import evodoc.models  # noqa F402 F401
 
 __all__ = [
     'app'

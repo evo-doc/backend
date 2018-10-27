@@ -10,7 +10,9 @@ def register(username, email, password):
         invalid.append("username")
 
     if invalid != []:
-        raise DbException(400,"Sign up data are invalid or non-unique.",invalid=invalid)
+        raise DbException(400,
+                          "Sign up data are invalid or non-unique.",
+                          invalid=invalid)
 
     user = User(name=username, email=email, password=passwdHash, role_id=1)
     app.db.session.add(user)
