@@ -3,6 +3,7 @@ from evodoc.exception import ApiException
 from evodoc.models import UserToken
 from datetime import datetime
 
+
 def serialize_list(l):
     """
     Serialize data in list, for each class in list calls its
@@ -43,14 +44,16 @@ def validate_token(token):
         :param token:
     """
     t = UserToken.query.filter_by(token=token).first()
-    if t==None:
-        raise ApiException(401,"Unauthorised user (missing or outdated token)")
+    if t is None:
+        raise ApiException(
+            401, "Unauthorised user (missing or outdated token)")
 
     if t.update <= datetime.utcnow():
-        t=UserToken.createSuccessor()
+        t = UserToken.createSuccessor()
     return t.token
 
-def validate_data(data, expected_values = [], message="Default error message."):
+
+def validate_data(data, expected_values=[], message="Default error message."):
     """
     validate data by given array of keys
     """

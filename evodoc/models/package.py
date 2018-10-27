@@ -10,12 +10,12 @@ class Package(app.db.Model, SoftDelete, CreateUpdate):
     url = sa.Column(sa.String, unique=True, nullable=False)
     active = sa.Column(sa.Boolean, default=True)
     owner_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"))
-    
-    def __init__ (self, name=None, description=None, url=None, owner_id=None):
-        self.name=name
-        self.description=description
-        self.url=url
-        self.owner_id=owner_id
+
+    def __init__(self, name=None, description=None, url=None, owner_id=None):
+        self.name = name
+        self.description = description
+        self.url = url
+        self.owner_id = owner_id
 
     def serialize(self):
         """

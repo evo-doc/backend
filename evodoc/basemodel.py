@@ -48,20 +48,20 @@ class GetOrQuery(BaseQuery):
 
     def getWithFlag(self, ident, RiseFlag=True):
         tmp = self.get(ident)
-        if tmp == None and RiseFlag:
-            raise DbException(400,"id")
+        if tmp is None and RiseFlag:
+            raise DbException(400, "id")
         return tmp
 
     def getByName(self, name, RiseFlag=True):
         tmp = self.filter_by(name=name).first()
-        if tmp == None and RiseFlag:
-            raise DbException(400,"name")
+        if tmp is None and RiseFlag:
+            raise DbException(400, "name")
         return tmp
 
     def getByEmail(self, email, RiseFlag=True):
         tmp = self.filter_by(email=email).first()
-        if tmp == None and RiseFlag:
-            raise DbException(400,"email")
+        if tmp is None and RiseFlag:
+            raise DbException(400, "email")
         return tmp
 
     def getByNameOrEmail(self, nameOrEmail, RiseFlag=True):
@@ -69,7 +69,5 @@ class GetOrQuery(BaseQuery):
             return self.filter_by(email=nameOrEmail).first()
         else:
             return self.filter_by(name=nameOrEmail).first()
-
-        if tmp == None and RiseFlag:
-            raise DbException(400,"nameOrEmail")
-        return tmp
+        raise DbException(400, "nameOrEmail")
+        return None

@@ -18,10 +18,6 @@ def __response_err(data):
     }), data.errorCode
 
 
-from evodoc.api.auth.signUp import signUp
-from evodoc.api.auth.signIn import signIn
-from evodoc.api.auth.signOut import signOut
-from evodoc.api.auth.authenticated import authenticated
 __all__ = [
     "auth",
     "signUp",
