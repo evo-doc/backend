@@ -1,3 +1,4 @@
+from evodoc.api import homeprint, auth
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
@@ -36,14 +37,17 @@ class Evodoc(Flask):
         app.register_blueprint(homeprint)
         app.register_blueprint(auth)
 
-        import evodoc.models
+        import evodoc.models  # noqa F401
 
         return app
 
+    def register():
+        app.register_blueprint(homeprint)
+        app.register_blueprint(auth)
 
-from evodoc.api import homeprint, auth
-app.register_blueprint(homeprint)
-app.register_blueprint(auth)
+
+app = Evodoc.create_app()
+app.register()
 
 __all__ = [
     'app'
