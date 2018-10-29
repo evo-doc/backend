@@ -17,4 +17,5 @@ def register(username, email, password):
     user = User(name=username, email=email, password=passwdHash, role_id=1)
     app.db.session.add(user)
     app.db.session.commit()
-    return user.createToken().token
+    return { "toke": user.createToken().token, "username": user.name }
+

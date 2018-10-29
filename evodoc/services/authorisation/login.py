@@ -8,4 +8,4 @@ def login(nameOrEmail, passwd):
     if user is None or user.password != passwd:  # TBA
         raise ApiException(400, "Sign in data are invalid.")
 
-    return user.createToken().token
+    return { "toke": user.createToken().token, "username": user.name }
