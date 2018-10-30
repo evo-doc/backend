@@ -7,6 +7,5 @@ from evodoc.api.auth import auth
 @auth.route('/signin', methods=['POST'])
 def signIn():
     data = request.get_json()
-    validate_data(data, ["login", "password"],
-                  message="Sign in data are invalid.")
+    validate_data(data, ["login", "password"])
     return response_ok(login(data["login"], data["password"]))
