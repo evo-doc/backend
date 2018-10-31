@@ -8,8 +8,7 @@ from evodoc.exception import ApiException
 @auth.route('/signup', methods=['POST'])
 def signUp():
     data = request.get_json()
-    validate_data(data, ["email", "password", "username"],
-                  message="Sign up data are invalid or non-unique.")
+    validate_data(data, ["email", "password", "username"])
     if '@' not in data["email"]:
         raise ApiException(
             400,
