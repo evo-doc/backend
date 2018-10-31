@@ -1,6 +1,6 @@
 class EvoDocException(Exception):
     """
-    This exception is raised in entity module
+    This is parent exceptio to other exceptions in this project.
     """
 
     def __init__(self, errorCode, message, invalid=[]):
