@@ -53,17 +53,19 @@ def validate_token(token):
     return t.token
 
 
-def validate_data(data, expected_values=[], message="Default error message."):
+def validate_data(data, expected_values=[],
+                  message="Not enough data to process the request.",
+                  errorCode=422):
     """
     validate data by given array of keys
     """
     missing = []
 
     if data is None or data == {}:
-        raise ApiException(400, "data")
+        raise ApiException(422, "Not enough data to process the request.")
     for value in expected_values:
         if value not in data or data[value] is None or data[value] == {}:
             missing.append(value)
 
         if missing != []:
-            raise ApiException(400, message, missing)
+            raise ApiException(errorCode, message, missing)
