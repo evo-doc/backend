@@ -8,7 +8,7 @@ def register(username, email, password):
     invalid = []
     if User.query.getByName(username, False) is not None:
         invalid.append("username")
-    if (not re.match('[^@]+@[^@]+\.[^@]+', email) or
+    if (not re.match('[^@]+@[^@]+\.[^@]+', email) or  # noqa W605
             User.query.getByEmail(email, False) is not None):
         invalid.append("email")
     if password is None or password is '':
