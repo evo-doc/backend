@@ -1,14 +1,19 @@
 from evodoc.models import User
 from evodoc import app
 from evodoc.exception.dbException import DbException
+import re
 
 
 def register(username, email, password):
-    passwdHash = password  # TBA
     invalid = []
     if User.query.getByName(username, False) is not None:
         invalid.append("username")
-
+    if (not re.match('[^@]+@[^@]+\.[^@]+', email) or  # noqa W605
+            User.query.getByEmail(email, False) is not None):
+        invalid.append("email")
+    if password is None or password is '':
+        invalid.append('password')
+    passwdHash = password  # TBA
     if invalid != []:
         raise DbException(400,
                           "Sign up data are invalid or non-unique.",
