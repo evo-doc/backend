@@ -2,7 +2,6 @@ from evodoc.services.authorisation import register
 from flask import request
 from evodoc.api.tools import response_ok, validate_data
 from evodoc.api.auth import auth
-from evodoc.exception import ApiException
 
 
 @auth.route('/signup', methods=['POST'])
