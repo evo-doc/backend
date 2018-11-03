@@ -6,7 +6,8 @@ import re
 
 def register(username, email, password):
     invalid = []
-    if User.query.getByName(username, False) is not None:
+    if (not re.match('^[A-z0-9\_\-]{8,}$', username) or  # noqa W605
+            User.query.getByName(username, False) is not None):
         invalid.append("username")
     if (not re.match('[^@]+@[^@]+\.[^@]+', email) or  # noqa W605
             User.query.getByEmail(email, False) is not None):
