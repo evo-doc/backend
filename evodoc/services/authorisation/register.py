@@ -11,6 +11,8 @@ def register(username, email, password):
     if (not re.match('[^@]+@[^@]+\.[^@]+', email) or
             User.query.getByEmail(email, False) is not None):
         invalid.append("email")
+    if password is None or password is '':
+        invalid.append('password')
     passwdHash = password  # TBA
     if invalid != []:
         raise DbException(400,
