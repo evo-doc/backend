@@ -9,10 +9,5 @@ from evodoc.exception import ApiException
 def signUp():
     data = request.get_json()
     validate_data(data, ["email", "password", "username"])
-    if '@' not in data["email"]:
-        raise ApiException(
-            400,
-            "Sign up data are invalid or non-unique.",
-            ["email"])
     return response_ok(
         register(data["username"], data["email"], data["password"]))
