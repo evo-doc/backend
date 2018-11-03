@@ -12,7 +12,7 @@ def register(username, email, password):
     if (not re.match('[^@]+@[^@]+\.[^@]+', email) or  # noqa W605
             User.query.getByEmail(email, False) is not None):
         invalid.append("email")
-    if password is None or password is '':
+    if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})', password):
         invalid.append('password')
     passwdHash = password  # TBA
     if invalid != []:
