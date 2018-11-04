@@ -7,7 +7,7 @@ from flask import g
 
 def register():
     invalid = []
-    if (not re.match('^[A-z0-9\_\-]{8,}$', g.data["username"]) or  # noqa W605
+    if (not re.match('^[A-z0-9\_\-]{3,}$', g.data["username"]) or  # noqa W605
             User.query.getByName(g.data["username"], False) is not None):
         invalid.append("username")
     if (not re.match('[^@]+@[^@]+\.[^@]+', g.data["email"]) or  # noqa W605
