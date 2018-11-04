@@ -1,6 +1,6 @@
 class EvoDocException(Exception):
     """
-    This is parent exceptio to other exceptions in this project.
+    This is parent exception to other exceptions in this project.
     """
 
     def __init__(self, errorCode, message, invalid=[]):
