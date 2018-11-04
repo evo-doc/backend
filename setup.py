@@ -14,7 +14,6 @@ setup(
     ],
     setup_requires=[
         "pytest-runner",
-        "codecov"
     ],
     tests_require=[
         "pytest",
