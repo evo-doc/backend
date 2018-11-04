@@ -12,14 +12,14 @@ class Evodoc(Flask):
         self.bcrypt = None
 
     @staticmethod
-    def create_app():
+    def create_app(conf="evodoc.conf"):
         """
         Application factory, just something that creates your new favorite API
         """
 
         app = Evodoc(__name__)
 
-        app.config.from_object("evodoc.conf")
+        app.config.from_object(conf)
 
         app.bcrypt = Bcrypt(app)
 
@@ -37,8 +37,9 @@ class Evodoc(Flask):
     @staticmethod
     def registerBlueprints():
         from evodoc.api import homeprint, auth
-        app.register_blueprint(homeprint)
-        app.register_blueprint(auth)
+        with app.app_context():
+            app.register_blueprint(homeprint)
+            app.register_blueprint(auth)
 
 
 app = Evodoc.create_app()
