@@ -13,7 +13,7 @@ def client():
     app = Evodoc.create_app("evodoc.testconf")
     client = app.test_client()
     with app.app_context():
-        import evodoc.models
+        import evodoc.models  # noqa F401
         app.db.drop_all()
         app.db.create_all()
         upgrade(os.path.dirname(__file__) + '/../migrations')
@@ -22,6 +22,5 @@ def client():
     yield client
 
     with app.app_context():
-        import evodoc.models
         app.db.drop_all()
     # os.unlink('/tmp/test_evodoc.db')
