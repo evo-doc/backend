@@ -66,5 +66,5 @@ def validate_data(data, expected_values=[],
         if value not in data or data[value] is None or data[value] == {}:
             missing.append(value)
 
-        if missing != []:
-            raise ApiException(errorCode, message, missing)
+    if missing != []:
+        raise ApiException(errorCode, message, missing)

@@ -1,12 +1,11 @@
-from evodoc.api.tools import response_ok, validate_token
+from evodoc.api.tools import response_ok
 from evodoc.api.auth import auth
-from evodoc.services.decorators import getToken
+from evodoc.services.decorators import ValidateToken
 
 
 @auth.route('/authenticated', methods=['GET'])
-@getToken
-def authenticated(token):
-    validate_token(token)
+@ValidateToken()
+def authenticated():
     return response_ok({
         "message": "User is authenticated."
     })
