@@ -1,4 +1,6 @@
-import evodoc
+from evodoc import Evodoc
+from flask_migrate import upgrade
+import os
 from pytest import fixture
 
 
@@ -8,13 +10,18 @@ def client():
     Fixture creating test client for evodoc app, initialize
     database and register blueprints
     """
-    app = evodoc.Evodoc.create_app()
+    app = Evodoc.create_app("evodoc.testconf")
     client = app.test_client()
     with app.app_context():
+        import evodoc.models
         app.db.drop_all()
         app.db.create_all()
+        upgrade(os.path.dirname(__file__) + '/../migrations')
         app.registerBlueprints()
 
     yield client
 
-    app.db.drop_all()
+    with app.app_context():
+        import evodoc.models
+        app.db.drop_all()
+    # os.unlink('/tmp/test_evodoc.db')
