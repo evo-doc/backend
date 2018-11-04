@@ -1,12 +1,11 @@
 from evodoc.services.authorisation import register
-from flask import request
-from evodoc.api.tools import response_ok, validate_data
+from evodoc.api.tools import response_ok
 from evodoc.api.auth import auth
+from evodoc.services.decorators import ValidateData
 
 
 @auth.route('/signup', methods=['POST'])
+@ValidateData(["email", "password", "username"])
 def signUp():
-    data = request.get_json()
-    validate_data(data, ["email", "password", "username"])
     return response_ok(
-        register(data["username"], data["email"], data["password"]))
+        register())
