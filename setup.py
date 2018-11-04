@@ -12,4 +12,15 @@ setup(
         'flask-migrate',
         'flask-bcrypt'
     ],
+    setup_requires=[
+        "pytest-runner",
+    ],
+    tests_require=[
+        "pytest",
+        "pytest-cov",
+        'flask',
+        'flask-sqlalchemy',
+        'flask-migrate',
+        'flask-bcrypt'
+    ],
 )
