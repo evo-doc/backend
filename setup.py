@@ -15,6 +15,8 @@ setup(
     setup_requires=["pytest-runner"],
     tests_require=[
         "pytest",
+        "pytest-cov",
+        "codecov",
         'flask',
         'flask-sqlalchemy',
         'flask-migrate',

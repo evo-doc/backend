@@ -1,0 +1,13 @@
+[run]
+source = evodoc
+
+[report]
+exclude_lines =
+    if self.debug:
+    pragma: no cover
+    raise NotImplementedError
+omit =
+    tests/*
+    migrations/*
+    fabfile.py
+    setup.py
