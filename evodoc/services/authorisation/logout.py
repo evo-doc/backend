@@ -1,4 +1,3 @@
-from evodoc.models import UserToken
 from flask import g
 
 
