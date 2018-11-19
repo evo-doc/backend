@@ -18,7 +18,6 @@ def app():
 def db(app):
     with app.app_context():
         upgrade(os.path.dirname(__file__) + '/../migrations')
-        app.db.reflect()
         app.db.create_all()
 
     yield app.db
