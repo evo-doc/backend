@@ -1,7 +1,4 @@
 from flask import jsonify
-from evodoc.exception import ApiException
-from evodoc.models import UserToken
-from datetime import datetime
 
 
 def serialize_list(l):
