@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify
-from evodoc.services import register
 
 homeprint = Blueprint("home", __name__)
 

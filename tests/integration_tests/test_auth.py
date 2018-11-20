@@ -182,6 +182,7 @@ def test_logout_invalid_token(client):
 
     assert response.status_code == 401
 
+
 def test_logout_ok(client):
     data = {'login': 'test@example.com',
             'password': 'P@ssword00'}
