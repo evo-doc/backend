@@ -20,7 +20,7 @@ class ValidateToken(object):
                     "Unauthorised user (missing or outdated token)",
                     ['token'])
             if tokenObject.update <= datetime.utcnow():
-                tokenObject = UserToken.createSuccessor()
+                tokenObject = tokenObject.createSuccessor()
             g.token = tokenObject
             return f(*args, **kwargs)
         wrapper.__name__ = f.__name__
