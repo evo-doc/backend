@@ -143,12 +143,11 @@ def test_authenticated_bad_token(client):
 
 def test_authenticated_old_token(client, db):
     token = db.session.query(UserToken).first()
-    token.update = datetime.now() - timedelta(hours=-1)
+    token.update = datetime.utcnow() - timedelta(days=1)
     db.session.commit()
 
     response = client.get('/auth/authenticated',
                           headers={'Authorization': 'Bearer ' + token.token})
-
     assert response.status_code == 200
     assert response.get_json() == {"message": "User is authenticated."}
 
