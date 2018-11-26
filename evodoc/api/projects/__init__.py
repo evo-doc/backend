@@ -7,6 +7,7 @@ projects = Blueprint('projects', __name__, url_prefix='/projects')
 
 from evodoc.api.projects.create import api_create  # noqa F402
 from evodoc.api.projects.view import api_view  # noqa F402
+from evodoc.api.projects.patch import api_patch  # noqa F402
 
 
 @projects.errorhandler(EvoDocException)
@@ -21,5 +22,6 @@ __all__ = [
     "projects",
     "api_create",
     "api_view",
+    "api_patch",
     "__response_err",
 ]

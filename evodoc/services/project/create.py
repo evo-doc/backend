@@ -8,19 +8,16 @@ from evodoc.exception.dbException import DbException
 
 
 def create():
-    invalid = []
-    if (not re.match('^[A-z0-9\_\-]{2,}$', g.data["name"]) or  # noqa W605
-            Project.query.getByName(g.data["name"], False) is not None):
-        invalid.append("name")
-
-    if invalid != []:
+    if (not re.match('^[A-z0-9\_\-]{2,}$', g.data["name"])):  # noqa W605
         raise DbException(400,
                           "Project data are invalid or non-unique.",
-                          invalid=invalid)
+                          invalid=["name"])
 
     g.project = Project(g.data["name"], g.data["description"], g.token.user_id)
+
     app.db.session.add(g.project)
     app.db.session.commit()
+
     pathlib.Path(conf.FILE_PATH + '/' + str(g.project.id) +
                  '/').mkdir(parents=True, exist_ok=True)
     for i in g.data["collaborators"]["contributors"]:
