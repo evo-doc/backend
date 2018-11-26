@@ -7,5 +7,5 @@ from flask import g
 @projects.route('/<int:id>', methods=['GET'])
 def api_view(id):
     g.id = id
-
-    return response_ok_obj(view())
+    view()
+    return response_ok_obj(g.project)

@@ -4,9 +4,9 @@ from flask import g
 
 
 def login():
-    user = User.query.getByNameOrEmail(g.data["login"])
+    g.user = User.query.getByNameOrEmail(g.data["login"])
 
-    if user is None or user.password != g.data["password"]:  # TBA
+    if g.user is None or g.user.password != g.data["password"]:  # TBA
         raise ApiException(400, "Sign in data are invalid.")
 
-    return {"token": user.createToken().token, "username": user.name}
+    g.token = g.user.createToken()

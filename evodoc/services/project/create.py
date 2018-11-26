@@ -18,15 +18,14 @@ def create():
                           "Project data are invalid or non-unique.",
                           invalid=invalid)
 
-    aProject = Project(g.data["name"], g.data["description"], g.token.user_id)
-    app.db.session.add(aProject)
+    g.project = Project(g.data["name"], g.data["description"], g.token.user_id)
+    app.db.session.add(g.project)
     app.db.session.commit()
-    pathlib.Path(conf.FILE_PATH + '/' + str(aProject.id) +
+    pathlib.Path(conf.FILE_PATH + '/' + str(g.project.id) +
                  '/').mkdir(parents=True, exist_ok=True)
     for i in g.data["collaborators"]["contributors"]:
-        aProject.contributors.append(User.query.getByName(i))
+        g.project.contributors.append(User.query.getByName(i))
 
-    app.db.session.merge(aProject)
+    app.db.session.merge(g.project)
     app.db.session.flush()
     app.db.session.commit()
-    return aProject
