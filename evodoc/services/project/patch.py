@@ -9,7 +9,7 @@ def patch():
     g.project = Project.query.get_or(g.id)
     if g.project is None:
         raise DbException(404,
-                          "Project project not found.",  # noqa W605
+                          "Project doesn't exist.",  # noqa W605
                           invalid=['id'])
     if ((g.data["name"] is not None) and  # noqa W605
             (not re.match('^[A-z0-9\_\-]{2,}$', g.data["name"]))):

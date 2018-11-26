@@ -17,8 +17,10 @@ def rmContributor():
     user = User.query.getByName(g.data['username'])
 
     if user in g.project.contributors:
-        g.project.contributors.remove(User.query.getByName(g.data['username']))
+        g.project.contributors.remove(user)
 
         app.db.session.merge(g.project)
         app.db.session.flush()
         app.db.session.commit()
+    else:
+        raise DbException(202, "This user is not a collaborator.")

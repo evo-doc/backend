@@ -14,8 +14,14 @@ def addContributor():
     if g.project.owner_id != g.token.user_id:
         raise DbException(403, "Access denied (no rights)")
 
-    g.project.contributors.append(User.query.getByName(g.data['username']))
+    user = User.query.getByName(g.data['username'])
 
-    app.db.session.merge(g.project)
-    app.db.session.flush()
-    app.db.session.commit()
+    if user in g.project.contributors:
+        g.project.contributors.append(user)
+
+        app.db.session.merge(g.project)
+        app.db.session.flush()
+        app.db.session.commit()
+    else:
+        raise DbException(
+            202, "This user is already a member of this project.")

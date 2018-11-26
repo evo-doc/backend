@@ -8,5 +8,5 @@ def view():
 
     if g.project is None:
         raise DbException(400,
-                          "Project data are invalid or non-unique.",
+                          "Project doesn't exist.",
                           invalid=['id'])
