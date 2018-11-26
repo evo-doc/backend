@@ -8,7 +8,7 @@ def addContributor():
     g.project = Project.query.get_or(g.id)
     if g.project is None:
         raise DbException(404,
-                          "Project project not found.",  # noqa W605
+                          "Project not found.",  # noqa W605
                           invalid=['id'])
 
     if g.project.owner_id != g.token.user_id:
