@@ -1,4 +1,4 @@
-from evodoc.api.tools import response_ok
+from evodoc.api.tools import response_ok_obj
 from evodoc.api.projects import projects
 from evodoc.services.decorators import ValidateData, ValidateToken
 from evodoc.services.project import create
@@ -7,7 +7,5 @@ from evodoc.services.project import create
 @projects.route('/project', methods=['POST'])
 @ValidateToken()
 @ValidateData(["name", "description", "collaborators"])
-def create_project():
-    return response_ok({
-        'id': create().id
-    })
+def api_create():
+    return response_ok_obj(create())

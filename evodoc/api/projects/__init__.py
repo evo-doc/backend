@@ -5,7 +5,8 @@ from evodoc.exception import EvoDocException
 projects = Blueprint('projects', __name__, url_prefix='/projects')
 
 
-from evodoc.api.projects import create  # noqa F402
+from evodoc.api.projects.create import api_create  # noqa F402
+from evodoc.api.projects.view import api_view  # noqa F402
 
 
 @projects.errorhandler(EvoDocException)
@@ -18,6 +19,7 @@ def __response_err(data):
 
 __all__ = [
     "projects",
-    "create",
+    "api_create",
+    "api_view",
     "__response_err",
 ]
