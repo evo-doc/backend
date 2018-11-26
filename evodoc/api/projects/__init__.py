@@ -1,8 +1,11 @@
-from evodoc.api.projects import create
 from flask import Blueprint, jsonify
 from evodoc.exception import EvoDocException
 
+
 projects = Blueprint('projects', __name__, url_prefix='/projects')
+
+
+from evodoc.api.projects import create  # noqa F402
 
 
 @projects.errorhandler(EvoDocException)
