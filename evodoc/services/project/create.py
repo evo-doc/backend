@@ -10,7 +10,7 @@ from evodoc.exception.dbException import DbException
 def create():
     if (not re.match('^[A-z0-9\_\-]{2,}$', g.data["name"])):  # noqa W605
         raise DbException(400,
-                          "Project data are invalid or non-unique.",
+                          "Project name is too short.",
                           invalid=["name"])
 
     g.project = Project(g.data["name"], g.data["description"], g.token.user_id)
@@ -22,7 +22,7 @@ def create():
                  '/').mkdir(parents=True, exist_ok=True)
     if 'contributors' not in g.data["collaborators"]:
         raise DbException(400,
-                          "Project data are invalid or non-unique.",
+                          "Project data are invalid.",
                           invalid=["collaborators"])
 
     for i in g.data["collaborators"]["contributors"]:

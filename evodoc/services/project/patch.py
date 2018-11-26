@@ -14,7 +14,7 @@ def patch():
     if ((g.data["name"] is not None) and  # noqa W605
             (not re.match('^[A-z0-9\_\-]{2,}$', g.data["name"]))):
         raise DbException(400,
-                          "Project data are invalid or non-unique.",
+                          "Project name is too short.",
                           invalid=['name'])
 
     if g.project.owner_id != g.token.user_id:
