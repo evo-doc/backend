@@ -35,9 +35,10 @@ class Evodoc(Flask):
         return app
 
     def registerBlueprints(self):
-        from evodoc.api import homeprint, auth
+        from evodoc.api import homeprint, auth, projects
         self.register_blueprint(homeprint)
         self.register_blueprint(auth)
+        self.register_blueprint(projects)
 
 
 app = Evodoc.create_app()

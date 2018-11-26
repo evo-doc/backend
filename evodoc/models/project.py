@@ -28,12 +28,15 @@ class Project(app.db.Model, SoftDelete, CreateUpdate):
         Serialize object for json
             :param self:
         """
+        contrib = []
+        for each in self.contributors:
+            contrib.append(each.serialize())
         return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
             'owner_id': self.owner_id,
-            'project_id': self.project_id,
+            'contributors': contrib,
             'active': self.active,
             'created': self.create,
             'updated': self.update

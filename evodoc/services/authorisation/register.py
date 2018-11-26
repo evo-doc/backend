@@ -22,8 +22,8 @@ def register():
                           "Sign up data are invalid or non-unique.",
                           invalid=invalid)
 
-    user = User(name=g.data["username"],
-                email=g.data["email"], password=passwdHash, role_id=1)
-    app.db.session.add(user)
+    g.user = User(name=g.data["username"],
+                  email=g.data["email"], password=passwdHash, role_id=1)
+    app.db.session.add(g.user)
     app.db.session.commit()
-    return {"token": user.createToken().token, "username": user.name}
+    g.token = g.user.createToken()

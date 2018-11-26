@@ -1,4 +1,5 @@
 from evodoc import app
+import hashlib
 import sqlalchemy as sa
 from evodoc.basemodel import SoftDelete, CreateUpdate
 from evodoc.models.project_to_user import ProjectToUser
@@ -35,10 +36,11 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
         Serialize object for json
             :param self:
         """
+        emailHash = hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
         return {
             'id': self.id,
             'name': self.name,
-            'email': self.email,
+            'emailhash': emailHash,
             'role_id': self.role_id,
             'activated': self.activated,
             'active': self.active,
