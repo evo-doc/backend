@@ -20,6 +20,11 @@ def create():
 
     pathlib.Path(conf.FILE_PATH + '/' + str(g.project.id) +
                  '/').mkdir(parents=True, exist_ok=True)
+    if 'contributors' not in g.data["collaborators"]:
+        raise DbException(400,
+                          "Project data are invalid or non-unique.",
+                          invalid=["collaborators"])
+
     for i in g.data["collaborators"]["contributors"]:
         g.project.contributors.append(User.query.getByName(i))
 
