@@ -6,7 +6,8 @@ class Seeds():
     @classmethod
     def test_seeds(cls):
         testusers = [
-            User("testuser", "test@login.com", 'Test@1010')
+            User("testuser", "test@login.com", 'Test@1010'),
+            User("testuser2", "test2@login.com", 'Test@1010'),
         ]
         for user in testusers:
             app.db.session.add(user)
