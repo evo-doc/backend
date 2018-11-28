@@ -10,6 +10,7 @@ class Evodoc(Flask):
         super().__init__(*args, **kwargs)
         self.db = None
         self.bcrypt = None
+        self.database_seeds = None
 
     @staticmethod
     def create_app(conf="evodoc.conf"):
@@ -40,9 +41,17 @@ class Evodoc(Flask):
         self.register_blueprint(auth)
         self.register_blueprint(projects)
 
+    def init_seeds(self):
+        from evodoc.services.seeds import Seeds
+        app.database_seeds = Seeds()
+
+    def test_seeds(self):
+        app.database_seeds.test_seeds()
+
 
 app = Evodoc.create_app()
 app.registerBlueprints()
+app.init_seeds()
 
 import evodoc.models  # noqa F402 F401
 
