@@ -5,6 +5,10 @@ from evodoc.models import User
 class Seeds():
     @classmethod
     def test_seeds(cls):
+        """
+        Seeds database with seeds
+            :param cls:
+        """
         testusers = [
             User("testuser", "test@login.com", 'Test@1010'),
             User("testuser2", "test2@login.com", 'Test@1010'),
