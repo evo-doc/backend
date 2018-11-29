@@ -24,6 +24,40 @@ test_create_project_error = [
             'message': 'Not enough data to process the request.'
         }
     ),
+    (
+        {
+            'name': 't',
+            'description': '',
+            'collaborators':  {
+                'contributors': []
+            }
+        },
+        {
+            'login': 'test@login.com',
+            'password': 'Test@1010'
+        },
+        {
+            'code': 400,
+            'invalid': ['name'],
+            'message': 'Project name is too short.'
+        }
+    ),
+    (
+        {
+            'name': 'Test',
+            'description': '',
+            'collaborators': ''
+        },
+        {
+            'login': 'test@login.com',
+            'password': 'Test@1010'
+        },
+        {
+            'code': 400,
+            'invalid': ['collaborators'],
+            'message': 'Project data are invalid.'
+        }
+    ),
 ]
 
 test_view_project_error = [
@@ -274,7 +308,9 @@ def test_create_ok(client):
         'name': 'Test project',
         'description': '',
         'collaborators':  {
-            'contributors': []
+            'contributors': [
+                'testuser3'
+            ]
         }
     }
     response = client.post('/projects/project', json=data, headers=headers)

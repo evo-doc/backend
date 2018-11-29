@@ -12,6 +12,7 @@ class Seeds():
         testusers = [
             User("testuser", "test@login.com", 'Test@1010'),
             User("testuser2", "test2@login.com", 'Test@1010'),
+            User("testuser3", "test3@login.com", 'Test@1010'),
         ]
         for user in testusers:
             app.db.session.add(user)

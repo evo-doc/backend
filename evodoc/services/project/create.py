@@ -15,15 +15,15 @@ def create():
 
     g.project = Project(g.data["name"], g.data["description"], g.token.user_id)
 
-    app.db.session.add(g.project)
-    app.db.session.commit()
-
     pathlib.Path(conf.FILE_PATH + '/' + str(g.project.id) +
                  '/').mkdir(parents=True, exist_ok=True)
     if 'contributors' not in g.data["collaborators"]:
         raise DbException(400,
                           "Project data are invalid.",
                           invalid=["collaborators"])
+
+    app.db.session.add(g.project)
+    app.db.session.commit()
 
     for i in g.data["collaborators"]["contributors"]:
         g.project.contributors.append(User.query.getByName(i))
