@@ -404,7 +404,7 @@ def test_api_rm_contributor_error(client, id, data, login, expected):
         headers = {'Authorization': 'Bearer ' + token}
 
     response = client.delete('/projects/' + str(id) +
-                           '/users', json=data, headers=headers)
+                             '/users', json=data, headers=headers)
 
     assert response.status_code == expected['code']
     assert response.get_json()['message'] == expected['message']
