@@ -3,7 +3,7 @@ from evodoc.exception import EvoDocException
 
 users = Blueprint('users', __name__, url_prefix='/users')
 
-from evodoc.api.users.api_users import get_all  # noqa F402
+from evodoc.api.users.api_users import *  # noqa F402
 
 
 @users.errorhandler(EvoDocException)
@@ -16,5 +16,6 @@ def __response_err(data):
 
 __all__ = [
     'get_all',
+    'get_account',
     '__response_err',
 ]
