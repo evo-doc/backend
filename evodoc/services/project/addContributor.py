@@ -16,7 +16,7 @@ def addContributor():
 
     user = User.query.getByName(g.data['username'])
 
-    if user in g.project.contributors:
+    if user not in g.project.contributors:
         g.project.contributors.append(user)
 
         app.db.session.merge(g.project)

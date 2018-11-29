@@ -7,6 +7,6 @@ def view():
     g.project = Project.query.get_or(g.id)
 
     if g.project is None:
-        raise DbException(400,
+        raise DbException(404,
                           "Project doesn't exist.",
                           invalid=['id'])

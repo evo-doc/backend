@@ -7,12 +7,17 @@ from evodoc.exception.dbException import DbException
 
 def patch():
     g.project = Project.query.get_or(g.id)
+
     if g.project is None:
         raise DbException(404,
                           "Project doesn't exist.",  # noqa W605
                           invalid=['id'])
+
+    if g.data is None or g.data == {}:
+        return
+
     if ((g.data["name"] is not None) and  # noqa W605
-            (not re.match('^[A-z0-9\_\-]{2,}$', g.data["name"]))):
+            (not re.match('^[A-z0-9\_\-\ ]{2,}$', g.data["name"]))):
         raise DbException(400,
                           "Project name is too short.",
                           invalid=['name'])

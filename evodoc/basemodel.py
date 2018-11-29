@@ -55,7 +55,7 @@ class GetOrQuery(BaseQuery):
     def getByName(self, name, RiseFlag=True):
         tmp = self.filter_by(name=name).first()
         if tmp is None and RiseFlag:
-            raise DbException(400, "name")
+            raise DbException(404, "Name not found.")
         return tmp
 
     def getByEmail(self, email, RiseFlag=True):

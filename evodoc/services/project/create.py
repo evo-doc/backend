@@ -8,15 +8,12 @@ from evodoc.exception.dbException import DbException
 
 
 def create():
-    if (not re.match('^[A-z0-9\_\-]{2,}$', g.data["name"])):  # noqa W605
+    if (not re.match('^[A-z0-9\_\-\ ]{2,}$', g.data['name'].strip())):  # noqa W605
         raise DbException(400,
                           "Project name is too short.",
                           invalid=["name"])
 
     g.project = Project(g.data["name"], g.data["description"], g.token.user_id)
-
-    app.db.session.add(g.project)
-    app.db.session.commit()
 
     pathlib.Path(conf.FILE_PATH + '/' + str(g.project.id) +
                  '/').mkdir(parents=True, exist_ok=True)
@@ -24,6 +21,9 @@ def create():
         raise DbException(400,
                           "Project data are invalid.",
                           invalid=["collaborators"])
+
+    app.db.session.add(g.project)
+    app.db.session.commit()
 
     for i in g.data["collaborators"]["contributors"]:
         g.project.contributors.append(User.query.getByName(i))
