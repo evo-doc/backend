@@ -46,6 +46,9 @@ class GetOrQuery(BaseQuery):
     def get_or(self, ident, default=None):
         return self.get(ident) or default
 
+    def get_all(self):
+        return self.filter_by(delete=None)
+
     def getWithFlag(self, ident, RiseFlag=True):
         tmp = self.get(ident)
         if tmp is None and RiseFlag:
