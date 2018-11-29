@@ -1,8 +1,9 @@
-from evodoc.api.users.get_all import get_all
 from flask import Blueprint, jsonify
 from evodoc.exception import EvoDocException
 
 users = Blueprint('users', __name__, url_prefix='/users')
+
+from evodoc.api.users.get_all import get_all  # noqa F402
 
 
 @users.errorhandler(EvoDocException)
