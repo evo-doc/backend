@@ -11,6 +11,7 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
     __tablename__ = "user"
     name = sa.Column(sa.String(50), unique=True)
     email = sa.Column(sa.String(120), unique=True)
+    fullname = sa.Column(sa.String(255))
     password = sa.Column(sa.String(128), nullable=False)
     active = sa.Column(sa.Boolean, default=True)
     activated = sa.Column(sa.Boolean, default=True)
@@ -38,14 +39,10 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
         """
         emailHash = hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
         return {
-            'id': self.id,
+            'email': self.email,
             'name': self.name,
-            'emailhash': emailHash,
-            'role_id': self.role_id,
-            'activated': self.activated,
-            'active': self.active,
-            'created': self.create,
-            'updated': self.update
+            'avatar': emailHash,
+            'fullname': self.fullname,
         }
 
     def createToken(self):
