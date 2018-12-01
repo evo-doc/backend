@@ -113,3 +113,6 @@ venv.bak/
 
 # VS code
 .vscode
+
+#macos
+.DS_Store

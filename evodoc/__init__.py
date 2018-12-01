@@ -1,8 +1,9 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade
 from sqlalchemy import MetaData
+import os
 
 
 class Evodoc(Flask):
@@ -49,10 +50,16 @@ class Evodoc(Flask):
     def test_seeds(self):
         app.database_seeds.test_seeds()
 
+    def migrate_db(self):
+        with self.app_context():
+            path = os.path.dirname(os.path.abspath(__file__))
+            upgrade(path + '../migrations')
+
 
 app = Evodoc.create_app()
 app.registerBlueprints()
 app.init_seeds()
+app.migrate_db()
 
 import evodoc.models  # noqa F402 F401
 
