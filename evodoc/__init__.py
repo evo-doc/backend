@@ -53,7 +53,7 @@ class Evodoc(Flask):
     def migrate_db(self):
         with self.app_context():
             path = os.path.dirname(os.path.abspath(__file__))
-            upgrade(path + '../migrations')
+            upgrade(path + '/../migrations')
 
 
 app = Evodoc.create_app()
