@@ -4,7 +4,7 @@ from evodoc.exception import DbException
 
 
 def view():
-    g.project = Project.query.get_or(g.id)
+    g.project = Project.query.get_active(g.id)
 
     if g.project is None:
         raise DbException(404,
