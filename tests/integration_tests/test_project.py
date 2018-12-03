@@ -145,7 +145,6 @@ test_delete_project_error = [
     (
         0,
         {},
-        {},
         {
             'code': 401,
             'invalid': ['token'],
@@ -154,7 +153,6 @@ test_delete_project_error = [
     ),
     (
         0,
-        {},
         {
             'login': 'test@login.com',
             'password': 'Test@1010'
@@ -167,9 +165,6 @@ test_delete_project_error = [
     ),
     (
         1,
-        {
-            'name': 'My project now'
-        },
         {
             'login': 'test2@login.com',
             'password': 'Test@1010'
@@ -509,8 +504,9 @@ def test_api_rm_contributor(client):
     assert response.get_json(
     )['message'] == 'This user is not a collaborator.'
 
-@pytest.mark.parametrize('id, data, login, expected', test_delete_project_error)
-def test_delete_error(client, id, data, login, expected):
+
+@pytest.mark.parametrize('id, login, expected', test_delete_project_error)
+def test_delete_error(client, id, login, expected):
     headers = {}
     if login != {}:
         token = get_token(client, login)
@@ -539,4 +535,3 @@ def test_delete_ok(client):
 
     assert response.status_code == 404
     assert response.get_json()['message'] == "Project doesn't exist."
-
