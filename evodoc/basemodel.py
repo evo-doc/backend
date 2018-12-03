@@ -74,3 +74,9 @@ class GetOrQuery(BaseQuery):
             return self.filter_by(name=nameOrEmail).first()
         raise DbException(400, "nameOrEmail")
         return None
+
+    def get_active(self, ident, default=None):
+        result = self.get(ident)
+        if result is not None and result.delete is None:
+            return result
+        return default
