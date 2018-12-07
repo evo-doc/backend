@@ -18,6 +18,9 @@ def deploy():
     # install the package in the application's virtualenv with pip
     sudo('/var/www/evodoc/venv/bin/pip install /tmp/%s' % filename)
 
+    with shell_env(FLASK_APP='evodoc:app'):
+        sudo('/var/www/evodoc/venv/bin/flask db upgrade')
+
     # remove the uploaded package
     run('rm -r /tmp/%s' % filename)
 
