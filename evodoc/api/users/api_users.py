@@ -1,8 +1,9 @@
 from evodoc.api.tools import response_ok_list, response_ok_obj
 from evodoc.api.users import users
 from evodoc.services.decorators import ValidateToken
+from evodoc.services.users import update_user
 from evodoc.models.user import User
-from flask import g
+from flask import g, request
 
 
 @users.route('', methods=['GET'])
@@ -21,3 +22,10 @@ def get_account(username):
 @ValidateToken()
 def get_my_account():
     return response_ok_obj(g.token.user)
+
+
+@users.route('/account', methods=['PATCH'])
+@ValidateToken()
+def edit_own_account():
+    data = request.get_json()
+    return response_ok_obj(update_user(data))
