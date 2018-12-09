@@ -7,6 +7,7 @@ from evodoc.models.module import Module
 from evodoc.models.project import Project
 from evodoc.models.project_to_user import ProjectToUser
 from evodoc.models.package import Package
+from evodoc.models.module_to_module import ModuleDependencies
 
 __all__ = [
     'User',
@@ -17,5 +18,6 @@ __all__ = [
     'Module',
     'Project',
     'ProjectToUser',
-    'Package'
+    'Package',
+    'ModuleDependencies',
 ]

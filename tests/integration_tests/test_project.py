@@ -334,7 +334,8 @@ def test_create_errors(client, data, login, expected):
     assert response.get_json()['invalid'] == expected['invalid']
 
 
-def test_create_ok(client):
+@pytest.mark.dependency()
+def test_create_project_ok(client):
     token = get_token(client, {
         'login': 'test@login.com',
         'password': 'Test@1010'

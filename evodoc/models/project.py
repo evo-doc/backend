@@ -30,7 +30,7 @@ class Project(app.db.Model, SoftDelete, CreateUpdate):
         """
         contrib = []
         for each in self.contributors:
-            contrib.append(each.serialize())
+            contrib.append(each.id)
         return {
             'id': self.id,
             'name': self.name,
