@@ -30,8 +30,8 @@ def edit_own_account():
     data = request.get_json()
     return response_ok_obj(update_user(data))
 
+
 @users.route('/account', methods=['DELETE'])
 @ValidateToken()
 def delete_own_account():
     return response_ok(delete_current_user())
-
