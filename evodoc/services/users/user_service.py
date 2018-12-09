@@ -36,3 +36,17 @@ def update_user(data):
     app.db.session.commit()
 
     return user_up
+
+
+def delete_current_user():
+    user_up = g.token.user
+
+    user_up.delete()
+    user_up.active = False
+
+    app.db.session.flush()
+    app.db.session.commit()
+
+    return {
+        'message': 'User account was deleted.'
+    }

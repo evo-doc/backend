@@ -226,3 +226,21 @@ def test_patch_user_ok(client, db):
     assert duser.email == data['email']
     assert duser.fullname == data['name']
     assert duser.name == data['username']
+
+
+def test_delete_user_ok(client, db):
+    testuser = User("testusery", "testusery@test.com", "Test@1010")
+    db.session.add(testuser)
+    db.session.commit()
+
+    token = get_token(client, {
+        'login': 'testusery',
+        'password': 'Test@1010'
+    })
+    headers = {'Authorization': 'Bearer ' + token}
+
+    response = client.delete('/users/account', headers=headers)
+
+    assert response.status_code == 200
+    duser = db.session.query(User).getByEmail('testusery@test.com')
+    assert duser.delete is not None
