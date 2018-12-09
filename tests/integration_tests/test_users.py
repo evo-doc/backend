@@ -301,7 +301,7 @@ def test_delete_user_ok(client, db):
 
 
 @pytest.mark.parametrize('data, login, expected', test_patch_password_error)
-def test_patch_user_error(client, data, login, expected):
+def test_patch_password_error(client, data, login, expected):
     headers = {}
     if login != {}:
         token = get_token(client, login)
