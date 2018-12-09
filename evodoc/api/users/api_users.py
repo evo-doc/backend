@@ -1,9 +1,10 @@
+from flask import g, request
+from evodoc.models.user import User
 from evodoc.api.tools import response_ok_list, response_ok_obj, response_ok
 from evodoc.api.users import users, user
 from evodoc.services.decorators import ValidateToken, ValidateData
-from evodoc.services.users import update_user, delete_current_user, user_change_passwd
-from evodoc.models.user import User
-from flask import g, request
+from evodoc.services.users import update_user, delete_current_user,\
+    user_change_passwd
 
 
 @users.route('', methods=['GET'])

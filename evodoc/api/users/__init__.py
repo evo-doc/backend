@@ -8,12 +8,6 @@ from evodoc.api.users.api_users import *  # noqa F402
 
 
 @users.errorhandler(EvoDocException)
-def __response_err(data):
-    return jsonify({
-        "message": data.message,
-        "invalid": data.invalid
-    }), data.errorCode
-
 @user.errorhandler(EvoDocException)
 def __response_err(data):
     return jsonify({
