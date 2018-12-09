@@ -6,6 +6,7 @@ from flask import Blueprint, jsonify
 
 homeprint = Blueprint("home", __name__)
 
+
 @homeprint.errorhandler(EvoDocException)
 def __response_err(data):
     return jsonify({
