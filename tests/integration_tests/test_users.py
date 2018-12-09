@@ -162,7 +162,7 @@ def test_get_our_data_error(client, login, expected):
         token = get_token(client, login)
         headers = {'Authorization': 'Bearer ' + token}
 
-    response = client.get('/users/account', headers=headers)
+    response = client.get('/user/account', headers=headers)
 
     assert response.status_code == expected['code']
     assert response.get_json()['message'] == expected['message']
@@ -176,7 +176,7 @@ def test_get_our_data_ok(client):
     })
     headers = {'Authorization': 'Bearer ' + token}
 
-    response = client.get('/users/account', headers=headers)
+    response = client.get('/user/account', headers=headers)
 
     assert response.status_code == 200
     data = response.get_json()
@@ -193,7 +193,7 @@ def test_patch_user_error(client, data, login, expected):
         token = get_token(client, login)
         headers = {'Authorization': 'Bearer ' + token}
 
-    response = client.patch('/users/account', json=data, headers=headers)
+    response = client.patch('/user/account', json=data, headers=headers)
 
     assert response.status_code == expected['code']
     assert response.get_json()['message'] == expected['message']
@@ -216,7 +216,7 @@ def test_patch_user_ok(client, db):
         'username': 'xddddddd'
     }
 
-    response = client.patch('/users/account', json=data, headers=headers)
+    response = client.patch('/user/account', json=data, headers=headers)
 
     assert response.status_code == 200
     rdata = response.get_json()
@@ -239,8 +239,31 @@ def test_delete_user_ok(client, db):
     })
     headers = {'Authorization': 'Bearer ' + token}
 
-    response = client.delete('/users/account', headers=headers)
+    response = client.delete('/user/account', headers=headers)
 
     assert response.status_code == 200
     duser = db.session.query(User).getByEmail('testusery@test.com')
     assert duser.delete is not None
+
+
+def test_update_passwd_user_ok(client, db, app):
+    testuser = User("testuserz", "testuserz@test.com", "Test@1010")
+    db.session.add(testuser)
+    db.session.commit()
+
+    token = get_token(client, {
+        'login': 'testuserz',
+        'password': 'Test@1010'
+    })
+    headers = {'Authorization': 'Bearer ' + token}
+    data = {
+        'old_password': 'Test@1010',
+        'new_password': 'Test@0101',
+    }
+
+    response = client.patch('/user/account/password', json=data,
+                            headers=headers)
+
+    assert response.status_code == 200
+    duser = db.session.query(User).getByEmail('testuserz@test.com')
+    assert app.bcrypt.check_password_hash(duser.password, data['new_password'])

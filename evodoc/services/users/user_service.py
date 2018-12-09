@@ -50,3 +50,25 @@ def delete_current_user():
     return {
         'message': 'User account was deleted.'
     }
+
+
+def user_change_passwd():
+    user_up = g.token.user
+
+    if not app.bcrypt.check_password_hash(user_up.password,
+                                          g.data['old_password']):
+        raise ApiException(400, 'Invalid old password.', ['old_password'])
+
+    if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})',
+                    g.data['new_password']):
+        raise ApiException(400, 'Invalid new password.', ['new_password'])
+
+    user_up.password = app.bcrypt.generate_password_hash(
+        g.data['new_password'])
+
+    app.db.session.flush()
+    app.db.session.commit()
+
+    return {
+        'message': 'User password was changed.'
+    }
