@@ -102,6 +102,60 @@ test_patch_user_error = [
     ),
 ]
 
+test_patch_password_error = [
+    (
+        {},
+        {},
+        {
+            'code': 401,
+            'invalid': ['token'],
+            'message': 'Unauthorised user (missing or outdated token)'
+        },
+    ),
+    (
+        {},
+        {
+            'login': 'test@login.com',
+            'password': 'Test@1010',
+        },
+        {
+            'code': 422,
+            'invalid': [],
+            'message': 'Not enough data to process the request.'
+        },
+    ),
+    (
+        {
+            'old_password': '',
+            'new_password': '',
+        },
+        {
+            'login': 'test@login.com',
+            'password': 'Test@1010',
+        },
+        {
+            'code': 400,
+            'invalid': ['old_password'],
+            'message': 'Invalid old password.'
+        },
+    ),
+    (
+        {
+            'old_password': 'Test@1010',
+            'new_password': '',
+        },
+        {
+            'login': 'test@login.com',
+            'password': 'Test@1010',
+        },
+        {
+            'code': 400,
+            'invalid': ['new_password'],
+            'message': 'Invalid new password.'
+        },
+    ),
+]
+
 
 @pytest.mark.parametrize('login, expected', test_get_users_error)
 def test_get_users_error(client, login, expected):
@@ -244,6 +298,21 @@ def test_delete_user_ok(client, db):
     assert response.status_code == 200
     duser = db.session.query(User).getByEmail('testusery@test.com')
     assert duser.delete is not None
+
+
+@pytest.mark.parametrize('data, login, expected', test_patch_password_error)
+def test_patch_user_error(client, data, login, expected):
+    headers = {}
+    if login != {}:
+        token = get_token(client, login)
+        headers = {'Authorization': 'Bearer ' + token}
+
+    response = client.patch('/user/account/password', json=data,
+                            headers=headers)
+
+    assert response.status_code == expected['code']
+    assert response.get_json()['message'] == expected['message']
+    assert response.get_json()['invalid'] == expected['invalid']
 
 
 def test_update_passwd_user_ok(client, db, app):
