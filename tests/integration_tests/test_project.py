@@ -141,6 +141,42 @@ test_patch_project_error = [
     ),
 ]
 
+test_delete_project_error = [
+    (
+        0,
+        {},
+        {
+            'code': 401,
+            'invalid': ['token'],
+            'message': 'Unauthorised user (missing or outdated token)'
+        }
+    ),
+    (
+        0,
+        {
+            'login': 'test@login.com',
+            'password': 'Test@1010'
+        },
+        {
+            'code': 404,
+            'invalid': ['id'],
+            'message': 'Project doesn\'t exist.'
+        }
+    ),
+    (
+        1,
+        {
+            'login': 'test2@login.com',
+            'password': 'Test@1010'
+        },
+        {
+            'code': 403,
+            'invalid': [],
+            'message': 'Access denied (no rights)'
+        }
+    ),
+]
+
 test_add_contributor_project_error = [
     (
         0,
@@ -298,7 +334,8 @@ def test_create_errors(client, data, login, expected):
     assert response.get_json()['invalid'] == expected['invalid']
 
 
-def test_create_ok(client):
+@pytest.mark.dependency()
+def test_create_project_ok(client):
     token = get_token(client, {
         'login': 'test@login.com',
         'password': 'Test@1010'
@@ -467,3 +504,35 @@ def test_api_rm_contributor(client):
     assert response.status_code == 202
     assert response.get_json(
     )['message'] == 'This user is not a collaborator.'
+
+
+@pytest.mark.parametrize('id, login, expected', test_delete_project_error)
+def test_delete_error(client, id, login, expected):
+    headers = {}
+    if login != {}:
+        token = get_token(client, login)
+        headers = {'Authorization': 'Bearer ' + token}
+
+    response = client.delete('/projects/' + str(id), headers=headers)
+
+    assert response.status_code == expected['code']
+    assert response.get_json()['message'] == expected['message']
+    assert response.get_json()['invalid'] == expected['invalid']
+
+
+def test_delete_ok(client):
+    token = get_token(client, {
+        'login': 'test@login.com',
+        'password': 'Test@1010'
+    })
+    headers = {'Authorization': 'Bearer ' + token}
+
+    response = client.delete('projects/1', headers=headers)
+
+    assert response.status_code == 200
+    assert response.get_json()['message'] == 'Project was removed.'
+
+    response = client.delete('projects/1', headers=headers)
+
+    assert response.status_code == 404
+    assert response.get_json()['message'] == "Project doesn't exist."

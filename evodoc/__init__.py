@@ -37,12 +37,13 @@ class Evodoc(Flask):
         return app
 
     def registerBlueprints(self):
-        from evodoc.api import homeprint, auth, projects, users, user
+        from evodoc.api import homeprint, auth, projects, users, user, modules
         self.register_blueprint(homeprint)
         self.register_blueprint(auth)
         self.register_blueprint(projects)
         self.register_blueprint(users)
         self.register_blueprint(user)
+        self.register_blueprint(modules)
 
     def init_seeds(self):
         from evodoc.services.seeds import Seeds
