@@ -5,7 +5,7 @@ from evodoc.exception import ApiException
 import datetime
 
 
-def delete():
+def module_delete():
     g.module = Module.query.get_active(g.id)
     if g.module is None:
         raise ApiException(

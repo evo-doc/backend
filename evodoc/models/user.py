@@ -29,7 +29,7 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
     def __init__(self, name=None, email=None, password=None, role_id=None):
         self.name = name
         self.email = email
-        self.password = password  # hashed TBA
+        self.password = app.bcrypt.generate_password_hash(password)
         self.role_id = role_id
 
     def serialize(self):
