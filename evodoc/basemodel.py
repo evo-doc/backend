@@ -36,6 +36,10 @@ class IdModel(Model):
 class SoftDelete(object):
     delete = sa.Column(sa.DateTime, nullable=True)
 
+    @classmethod
+    def delete_obj(cls):
+        cls.delete = datetime.datetime.utcnow()
+
 
 class CreateUpdate(object):
     create = sa.Column(sa.DateTime, default=datetime.datetime.utcnow())
