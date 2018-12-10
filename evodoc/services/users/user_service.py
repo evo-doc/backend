@@ -2,6 +2,7 @@ from evodoc.models import User
 from evodoc.exception import DbException, ApiException
 from flask import g
 import re
+import datetime
 from evodoc import app
 
 
@@ -41,7 +42,7 @@ def update_user(data):
 def delete_current_user():
     user_up = g.token.user
 
-    user_up.delete()
+    user_up.delete = datetime.datetime.utcnow()
     user_up.active = False
 
     app.db.session.flush()

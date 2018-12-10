@@ -37,7 +37,7 @@ class SoftDelete(object):
     delete = sa.Column(sa.DateTime, nullable=True)
 
     @classmethod
-    def delete(cls):
+    def delete_obj(cls):
         cls.delete = datetime.datetime.utcnow()
 
 
