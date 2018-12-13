@@ -10,7 +10,7 @@ setup(
         'flask',
         'flask-sqlalchemy',
         'flask-migrate',
-        'flask-bcrypt'
+        'flask-bcrypt',
     ],
     setup_requires=[
         "pytest-runner",
@@ -21,6 +21,6 @@ setup(
         'flask',
         'flask-sqlalchemy',
         'flask-migrate',
-        'flask-bcrypt'
+        'flask-bcrypt',
     ],
 )

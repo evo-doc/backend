@@ -181,6 +181,8 @@ def test_get_users_ok(client):
     response = client.get('/users', headers=headers)
 
     assert response.status_code == 200
+    data = response.get_json()
+    assert 'users' in data
 
 
 @pytest.mark.parametrize('name, login, expected', test_get_user_error)

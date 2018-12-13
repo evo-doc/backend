@@ -6,6 +6,36 @@ import datetime
 from evodoc import app
 
 
+class UsersListDTO():
+    label = [
+        'username',
+        'email',
+    ]
+    data = []
+
+    def add_user(self, user_data):
+        self.data.append(user_data)
+
+    def seriliaze(self):
+        return {
+            'label': self.label,
+            'data': self.data,
+        }
+
+
+def get_users():
+    users = User.query.filter(User.id != g.token.user.id)
+    result = UsersListDTO()
+    for user in users:
+        data = [
+            user.name,
+            user.email,
+        ]
+        result.add_user(data)
+
+    return {'users': result.seriliaze()}
+
+
 def update_user(data):
     user_up = g.token.user
     if ('username' in data

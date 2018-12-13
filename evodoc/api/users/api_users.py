@@ -4,13 +4,13 @@ from evodoc.api.tools import response_ok_list, response_ok_obj, response_ok
 from evodoc.api.users import users, user
 from evodoc.services.decorators import ValidateToken, ValidateData
 from evodoc.services.users import update_user, delete_current_user,\
-    user_change_passwd
+    user_change_passwd, get_users
 
 
 @users.route('', methods=['GET'])
 @ValidateToken()
 def get_all():
-    return response_ok_list(User.query.get_all())
+    return response_ok(get_users())
 
 
 @users.route('/<string:username>/account', methods=['GET'])
