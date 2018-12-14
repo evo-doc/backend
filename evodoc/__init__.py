@@ -23,6 +23,8 @@ class Evodoc(Flask):
 
         app.config.from_object(conf)
 
+        app.config.from_envvar('EVODOC_CONFIG_FILE', silent=True)
+
         app.bcrypt = Bcrypt(app)
 
         from evodoc.basemodel import IdModel, naming_convention, GetOrQuery

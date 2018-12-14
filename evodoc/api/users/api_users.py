@@ -1,5 +1,6 @@
 from flask import g, request
 from evodoc.models.user import User
+from evodoc.exception import ApiException
 from evodoc.api.tools import response_ok_obj, response_ok
 from evodoc.api.users import users, user
 from evodoc.services.decorators import ValidateToken, ValidateData
@@ -16,7 +17,11 @@ def get_all():
 @users.route('/<string:username>/account', methods=['GET'])
 @ValidateToken()
 def get_account(username):
-    return response_ok_obj(User.query.getByName(username))
+    user = User.query.getByName(username, False)
+    if user is None:
+        raise ApiException(
+            400, 'User was not found in database.', ['username'])
+    return response_ok_obj(user)
 
 
 @user.route('/account', methods=['GET'])

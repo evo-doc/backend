@@ -40,9 +40,9 @@ class User(app.db.Model, SoftDelete, CreateUpdate):
         emailHash = hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
         return {
             'email': self.email,
-            'name': self.name,
+            'username': self.name,
             'avatar': emailHash,
-            'fullname': self.fullname,
+            'name': self.fullname,
         }
 
     def createToken(self):

@@ -30,9 +30,9 @@ test_get_user_error = [
             'password': 'Test@1010',
         },
         {
-            'code': 404,
-            'invalid': [],
-            'message': 'Name not found.'
+            'code': 400,
+            'invalid': ['username'],
+            'message': 'User was not found in database.'
         },
     ),
 ]
@@ -239,7 +239,7 @@ def test_get_our_data_ok(client):
     assert 'name' in data
     assert 'email' in data
     assert 'avatar' in data
-    assert 'fullname' in data
+    assert 'username' in data
 
 
 @pytest.mark.parametrize('data, login, expected', test_patch_user_error)
