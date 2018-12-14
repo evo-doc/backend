@@ -19,7 +19,8 @@ def get_all():
 def get_account(username):
     user = User.query.getByName(username, False)
     if user is None:
-        raise ApiException(400, 'User was not found in database.', ['username'])
+        raise ApiException(
+            400, 'User was not found in database.', ['username'])
     return response_ok_obj(user)
 
 
