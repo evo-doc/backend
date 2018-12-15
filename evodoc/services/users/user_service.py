@@ -39,7 +39,14 @@ class ProjectListDTO():
 
     def add_project(self, project_data):
         if len(self.data) <= self.limit:
-            self.data.append(project_data)
+            if self.add_only_unique(project_data):
+                self.data.append(project_data)
+
+    def add_only_unique(self, project_data):
+        for project in self.data:
+            if project[0] == project_data[0]:
+                return False
+        return True
 
     def seriliaze(self):
         return {
@@ -135,9 +142,9 @@ def get_user_accessible():
         limit = int(g.data['limit'])
     except ValueError:
         raise ApiException(400, 'Invalid limit.', ['limit'])
-
     if limit < 0:
         raise ApiException(400, 'Invalid limit.', ['limit'])
+
     user_up = g.token.user
     result = ProjectListDTO(limit)
     owned_project = Project.query.filter(Project.owner_id == user_up.id)
