@@ -1,4 +1,4 @@
-from evodoc.models import User
+from evodoc.models import User, Project, ProjectToUser
 from evodoc.exception import DbException, ApiException
 from flask import g
 import re
@@ -15,6 +15,31 @@ class UsersListDTO():
 
     def add_user(self, user_data):
         self.data.append(user_data)
+
+    def seriliaze(self):
+        return {
+            'label': self.label,
+            'data': self.data,
+        }
+
+
+class ProjectListDTO():
+    label = [
+        "id",
+        "owner",
+        "name",
+        "description",
+        "version"
+    ]
+    data = []
+    limit = 0
+
+    def __init__(self, limit = 0):
+        self.limit = limit
+
+    def add_project(self, project_data):
+        if len(self.data) <= self.limit:
+            self.data.append(project_data)
 
     def seriliaze(self):
         return {
@@ -103,3 +128,41 @@ def user_change_passwd():
     return {
         'message': 'User password was changed.'
     }
+
+
+def get_user_accessible():
+    try:
+        limit = int(g.data['limit'])
+    except ValueError:
+        raise ApiException(400, 'Invalid limit.', ['limit'])
+
+    if limit < 0:
+        raise ApiException(400, 'Invalid limit.', ['limit'])
+    user_up = g.token.user
+    result = ProjectListDTO(limit)
+    owned_project = Project.query.filter(Project.owner_id == user_up.id)
+
+    for project in owned_project:
+        data = [
+            project.id,
+            user_up.name,
+            "",
+            "",
+            ""
+        ]
+        result.add_project(data)
+
+    connected = Project.query.filter(Project.contributors.contains(user_up))
+
+    for connection in connected:
+        project = Project.query.filter(Project.id == connection.project_id)
+        data = [
+            project.id,
+            user_up.name,
+            "",
+            "",
+            ""
+        ]
+        result.add_project(data)
+
+    return {'projects':result.seriliaze()}
