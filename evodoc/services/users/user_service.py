@@ -1,4 +1,4 @@
-from evodoc.models import User, Project, ProjectToUser
+from evodoc.models import User, Project
 from evodoc.exception import DbException, ApiException
 from flask import g
 import re
@@ -34,7 +34,7 @@ class ProjectListDTO():
     data = []
     limit = 0
 
-    def __init__(self, limit = 0):
+    def __init__(self, limit=0):
         self.limit = limit
 
     def add_project(self, project_data):
@@ -165,4 +165,4 @@ def get_user_accessible():
         ]
         result.add_project(data)
 
-    return {'projects':result.seriliaze()}
+    return {'projects': result.seriliaze()}
