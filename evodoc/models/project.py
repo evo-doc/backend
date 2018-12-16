@@ -2,6 +2,7 @@ from evodoc import app
 import sqlalchemy as sa
 from evodoc.basemodel import SoftDelete, CreateUpdate
 from evodoc.models.project_to_user import ProjectToUser
+import hashlib
 
 
 class Project(app.db.Model, SoftDelete, CreateUpdate):
@@ -30,13 +31,26 @@ class Project(app.db.Model, SoftDelete, CreateUpdate):
         """
         contrib = []
         for each in self.contributors:
-            contrib.append(each.id)
+            contrib.append([
+                each.name,
+                hashlib.md5(each.email.lower().encode('utf-8')).hexdigest(),
+                'contributor',
+                ])
+        
+        colab={
+            'label':[
+                "username",
+                "emailhash",
+                "role",
+            ],
+            'data':contrib,
+        }
         return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
             'owner_id': self.owner_id,
-            'contributors': contrib,
+            'collaborators': colab,
             'active': self.active,
             'created': self.create,
             'updated': self.update
