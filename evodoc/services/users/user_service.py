@@ -31,15 +31,10 @@ class ProjectListDTO():
         "description"
     ]
     data = []
-    limit = 0
-
-    def __init__(self, limit=0):
-        self.limit = limit
 
     def add_project(self, project_data):
-        if len(self.data) <= self.limit:
-            if self.add_only_unique(project_data):
-                self.data.append(project_data)
+        if self.add_only_unique(project_data):
+            self.data.append(project_data)
 
     def add_only_unique(self, project_data):
         for project in self.data:
@@ -137,30 +132,11 @@ def user_change_passwd():
 
 
 def get_user_accessible():
-    try:
-        limit = int(g.data['limit'])
-    except ValueError:
-        raise ApiException(400, 'Invalid limit.', ['limit'])
-    if limit < 0:
-        raise ApiException(400, 'Invalid limit.', ['limit'])
-
     user_up = g.token.user
-    result = ProjectListDTO(limit)
+    result = ProjectListDTO()
     owned_project = Project.query.filter(Project.owner_id == user_up.id)
 
     for project in owned_project:
-        data = [
-            project.id,
-            user_up.name,
-            project.name,
-            project.description,
-        ]
-        result.add_project(data)
-
-    connected = Project.query.filter(Project.contributors.contains(user_up))
-
-    for connection in connected:
-        project = Project.query.filter(Project.id == connection.project_id)
         data = [
             project.id,
             user_up.name,
