@@ -28,8 +28,7 @@ class ProjectListDTO():
         "id",
         "owner",
         "name",
-        "description",
-        "version"
+        "description"
     ]
     data = []
     limit = 0
@@ -153,9 +152,8 @@ def get_user_accessible():
         data = [
             project.id,
             user_up.name,
-            "",
-            "",
-            ""
+            project.name,
+            project.description,
         ]
         result.add_project(data)
 
@@ -166,9 +164,8 @@ def get_user_accessible():
         data = [
             project.id,
             user_up.name,
-            "",
-            "",
-            ""
+            project.name,
+            project.description,
         ]
         result.add_project(data)
 
