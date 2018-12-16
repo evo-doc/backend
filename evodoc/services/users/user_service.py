@@ -7,11 +7,15 @@ from evodoc import app
 
 
 class UsersListDTO():
-    label = [
-        'username',
-        'email',
-    ]
+    label = []
     data = []
+
+    def __init__(self):
+        self.label = [
+            'username',
+            'email',
+        ]
+        self.data = []
 
     def add_user(self, user_data):
         self.data.append(user_data)
@@ -24,13 +28,17 @@ class UsersListDTO():
 
 
 class ProjectListDTO():
-    label = [
-        "id",
-        "owner",
-        "name",
-        "description"
-    ]
+    label = []
     data = []
+
+    def __init__(self):
+        self.label = [
+            "id",
+            "owner",
+            "name",
+            "description"
+        ]
+        self.data = []
 
     def add_project(self, project_data):
         if self.add_only_unique(project_data):
@@ -134,9 +142,21 @@ def user_change_passwd():
 def get_user_accessible():
     user_up = g.token.user
     result = ProjectListDTO()
-    owned_project = Project.query.filter(Project.owner_id == user_up.id)
+    owned_project = Project.query.filter(Project.owner_id == user_up.id).all()
 
     for project in owned_project:
+        data = [
+            project.id,
+            user_up.name,
+            project.name,
+            project.description,
+        ]
+        result.add_project(data)
+
+    connected = Project.query.filter(Project.contributors.contains(user_up))\
+        .all()
+
+    for project in connected:
         data = [
             project.id,
             user_up.name,
