@@ -35,15 +35,15 @@ class Project(app.db.Model, SoftDelete, CreateUpdate):
                 each.name,
                 hashlib.md5(each.email.lower().encode('utf-8')).hexdigest(),
                 'contributor',
-                ])
-        
-        colab={
-            'label':[
+            ])
+
+        colab = {
+            'label': [
                 "username",
                 "emailhash",
                 "role",
             ],
-            'data':contrib,
+            'data': contrib,
         }
         return {
             'id': self.id,
