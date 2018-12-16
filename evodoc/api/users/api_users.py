@@ -5,7 +5,7 @@ from evodoc.api.tools import response_ok_obj, response_ok
 from evodoc.api.users import users, user
 from evodoc.services.decorators import ValidateToken, ValidateData
 from evodoc.services.users import update_user, delete_current_user,\
-    user_change_passwd, get_users
+    user_change_passwd, get_users, get_user_accessible
 
 
 @users.route('', methods=['GET'])
@@ -48,3 +48,10 @@ def delete_own_account():
 @ValidateData(['old_password', 'new_password'])
 def change_password():
     return response_ok(user_change_passwd())
+
+
+@user.route('/projects', methods=['POST'])
+@ValidateToken()
+@ValidateData(['limit'])
+def get_accessible_project():
+    return response_ok(get_user_accessible())

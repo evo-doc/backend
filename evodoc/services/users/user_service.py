@@ -1,4 +1,4 @@
-from evodoc.models import User
+from evodoc.models import User, Project
 from evodoc.exception import DbException, ApiException
 from flask import g
 import re
@@ -15,6 +15,32 @@ class UsersListDTO():
 
     def add_user(self, user_data):
         self.data.append(user_data)
+
+    def seriliaze(self):
+        return {
+            'label': self.label,
+            'data': self.data,
+        }
+
+
+class ProjectListDTO():
+    label = [
+        "id",
+        "owner",
+        "name",
+        "description"
+    ]
+    data = []
+
+    def add_project(self, project_data):
+        if self.add_only_unique(project_data):
+            self.data.append(project_data)
+
+    def add_only_unique(self, project_data):
+        for project in self.data:
+            if project[0] == project_data[0]:
+                return False
+        return True
 
     def seriliaze(self):
         return {
@@ -103,3 +129,20 @@ def user_change_passwd():
     return {
         'message': 'User password was changed.'
     }
+
+
+def get_user_accessible():
+    user_up = g.token.user
+    result = ProjectListDTO()
+    owned_project = Project.query.filter(Project.owner_id == user_up.id)
+
+    for project in owned_project:
+        data = [
+            project.id,
+            user_up.name,
+            project.name,
+            project.description,
+        ]
+        result.add_project(data)
+
+    return {'projects': result.seriliaze()}
