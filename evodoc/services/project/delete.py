@@ -1,11 +1,11 @@
 from evodoc.models import Project
-from flask import g
+# from flask import g
 from evodoc import app
 from evodoc.exception.dbException import DbException
 import datetime
 
 
-def project_delete():
+def project_delete(g):
     g.project = Project.query.get_active(g.id)
 
     if g.project is None:

@@ -1,10 +1,10 @@
 from evodoc.models import User
 from evodoc.exception import ApiException
-from flask import g
+# from flask import g
 from evodoc import app
 
 
-def login():
+def login(g):
     g.user = User.query.getByNameOrEmail(g.data["login"])
 
     if g.user is None\

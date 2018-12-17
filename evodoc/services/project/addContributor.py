@@ -1,10 +1,10 @@
 from evodoc.models import Project, User
-from flask import g
+# from flask import g
 from evodoc import app
 from evodoc.exception.dbException import DbException
 
 
-def addContributor():
+def addContributor(g):
     g.project = Project.query.get_or(g.id)
     if g.project is None:
         raise DbException(404,

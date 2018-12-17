@@ -1,11 +1,11 @@
 from evodoc.models import Module, Project
-from flask import g
+# from flask import g
 from evodoc import app
 from evodoc.exception import ApiException
 import datetime
 
 
-def module_delete():
+def module_delete(g):
     g.module = Module.query.get_active(g.id)
     if g.module is None:
         raise ApiException(

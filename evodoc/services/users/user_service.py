@@ -1,6 +1,6 @@
 from evodoc.models import User, Project
 from evodoc.exception import DbException, ApiException
-from flask import g
+# from flask import g
 import re
 import datetime
 from evodoc import app
@@ -49,7 +49,7 @@ class ProjectListDTO():
         }
 
 
-def get_users():
+def get_users(g):
     users = User.query.filter(User.id != g.token.user.id)
     result = UsersListDTO()
     for user in users:
@@ -62,7 +62,7 @@ def get_users():
     return {'users': result.seriliaze()}
 
 
-def update_user(data):
+def update_user(g, data):
     user_up = g.token.user
     if ('username' in data
             and data['username'] is not None):
@@ -95,7 +95,7 @@ def update_user(data):
     return user_up
 
 
-def delete_current_user():
+def delete_current_user(g):
     user_up = g.token.user
 
     user_up.delete = datetime.datetime.utcnow()
@@ -109,7 +109,7 @@ def delete_current_user():
     }
 
 
-def user_change_passwd():
+def user_change_passwd(g):
     user_up = g.token.user
 
     if not app.bcrypt.check_password_hash(user_up.password,
@@ -131,7 +131,7 @@ def user_change_passwd():
     }
 
 
-def get_user_accessible():
+def get_user_accessible(g):
     user_up = g.token.user
     result = ProjectListDTO()
     owned_project = Project.query.filter(Project.owner_id == user_up.id)

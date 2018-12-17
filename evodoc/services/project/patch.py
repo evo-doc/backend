@@ -1,11 +1,11 @@
 from evodoc.models import Project
-from flask import g
+# from flask import g
 from evodoc import app
 import re
 from evodoc.exception.dbException import DbException
 
 
-def patch():
+def patch(g):
     g.project = Project.query.get_active(g.id)
 
     if g.project is None:
