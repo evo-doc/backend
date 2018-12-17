@@ -1,9 +1,9 @@
 from evodoc.models import Project
-from flask import g
+# from flask import g
 from evodoc.exception import DbException
 
 
-def view():
+def view(g):
     g.project = Project.query.get_active(g.id)
 
     if g.project is None:

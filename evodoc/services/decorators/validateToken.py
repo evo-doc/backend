@@ -6,7 +6,7 @@ from evodoc.exception import ApiException
 
 class ValidateToken(object):
     def __call__(self, f):
-        def wrapper(*args, **kwargs):
+        def wrapper(g, *args, **kwargs):
             header = request.headers.get('Authorization')
             if header and 'Bearer ' in header:
                 token = header.split(" ")[1]
@@ -22,6 +22,6 @@ class ValidateToken(object):
             if tokenObject.update <= datetime.utcnow():
                 tokenObject = tokenObject.createSuccessor()
             g.token = tokenObject
-            return f(*args, **kwargs)
+            return f(g, *args, **kwargs)
         wrapper.__name__ = f.__name__
         return wrapper

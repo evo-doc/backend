@@ -1,12 +1,12 @@
 from evodoc.models import Module, Project
-from flask import g
+# from flask import g
 from evodoc.exception import DbException, ApiException
 import evodoc.conf as conf
 import re
 from evodoc import app
 
 
-def create():
+def create(g):
     invalid = []
     g.project = Project.query.get_active(g.data['project'])
     if g.project is None:

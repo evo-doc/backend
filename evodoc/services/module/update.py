@@ -1,12 +1,12 @@
 from evodoc.models import Module, Project
-from flask import g
+# from flask import g
 from evodoc.exception import DbException, ApiException
 from evodoc import app
 import re
 from evodoc.conf import FILE_PATH
 
 
-def update():
+def update(g):
     invalid = []
     g.module = Module.query.get_active(g.id)
     if g.module is None:

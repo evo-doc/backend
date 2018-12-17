@@ -3,7 +3,7 @@ from evodoc.models.package import Package
 from evodoc.models.project import Project
 
 
-def get_stats():
+def get_stats(g):
     users = User.query.get_all().count()
     packages = Package.query.get_all().count()
     projects = Project.query.get_all().count()

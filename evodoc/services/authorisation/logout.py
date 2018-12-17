@@ -1,5 +1,2 @@
-from flask import g
-
-
-def logout():
+def logout(g):
     g.token.deleteWithPrevious()

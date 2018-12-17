@@ -2,10 +2,10 @@ from evodoc.models import User
 from evodoc import app
 from evodoc.exception.dbException import DbException
 import re
-from flask import g
+# from flask import g
 
 
-def register():
+def register(g):
     invalid = []
     if (not re.match('^[A-z0-9\_\-]{3,}$', g.data["username"]) or  # noqa W605
             User.query.getByName(g.data["username"], False) is not None):
