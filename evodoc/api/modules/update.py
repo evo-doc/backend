@@ -9,7 +9,7 @@ from evodoc.services.decorators import CreateContext
 @modules.route('/<int:id>', methods=['PATCH'])
 @CreateContext()
 @ValidateToken()
-def api_update(g,id):
+def api_update(g, id):
     g.id = id
     g.data = request.get_json()
     update(g)

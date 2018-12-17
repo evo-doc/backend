@@ -1,4 +1,4 @@
-from flask import request, g
+from flask import request
 from evodoc.models import UserToken
 from datetime import datetime
 from evodoc.exception import ApiException

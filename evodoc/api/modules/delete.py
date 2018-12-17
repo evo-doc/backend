@@ -9,7 +9,7 @@ from evodoc.services.decorators import CreateContext
 @modules.route('/<int:id>', methods=['DELETE'])
 @CreateContext()
 @ValidateToken()
-def api_delete(g,id):
+def api_delete(g, id):
     g.id = id
     module_delete(g)
     return response_ok({

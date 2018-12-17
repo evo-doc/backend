@@ -5,6 +5,7 @@ from evodoc.services.project import addContributor
 # from flask import g
 from evodoc.services.decorators import CreateContext
 
+
 @projects.route('/<int:id>/users', methods=['POST'])
 @CreateContext()
 @ValidateToken()

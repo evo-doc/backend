@@ -1,4 +1,4 @@
-from flask import request, g
+from flask import request
 from evodoc.exception import ApiException
 
 
@@ -7,7 +7,7 @@ class ValidateData(object):
         self.expected_values = expected_values
 
     def __call__(self, f):
-        def wrapper(g,*args, **kwargs):
+        def wrapper(g, *args, **kwargs):
             missing = []
             g.data = request.get_json()
 
@@ -25,6 +25,6 @@ class ValidateData(object):
                     422,
                     "Not enough data to process the request.",
                     missing)
-            return f(g,*args, **kwargs)
+            return f(g, *args, **kwargs)
         wrapper.__name__ = f.__name__
         return wrapper

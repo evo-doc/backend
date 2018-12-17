@@ -19,7 +19,7 @@ def get_all(g):
 @users.route('/<string:username>/account', methods=['GET'])
 @CreateContext()
 @ValidateToken()
-def get_account(g,username):
+def get_account(g, username):
     user = User.query.getByName(username, False)
     if user is None:
         raise ApiException(
@@ -39,7 +39,7 @@ def get_my_account(g):
 @ValidateToken()
 def edit_own_account(g):
     data = request.get_json()
-    return response_ok_obj(update_user(g,data))
+    return response_ok_obj(update_user(g, data))
 
 
 @user.route('/account', methods=['DELETE'])

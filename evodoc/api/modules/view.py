@@ -9,7 +9,7 @@ from evodoc.services.decorators import CreateContext
 @modules.route('/<int:id>', methods=['GET'])
 @CreateContext()
 @ValidateToken()
-def api_view(g,id):
+def api_view(g, id):
     g.id = id
     view(g)
     return response_ok_obj(g.module)
