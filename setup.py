@@ -11,6 +11,7 @@ setup(
         'flask-sqlalchemy',
         'flask-migrate',
         'flask-bcrypt',
+        'pypandoc',
     ],
     setup_requires=[
         "pytest-runner",
