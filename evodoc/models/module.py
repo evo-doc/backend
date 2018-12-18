@@ -8,6 +8,7 @@ from evodoc.conf import FILE_PATH
 class Module(app.db.Model, SoftDelete, CreateUpdate):
     __tablename__ = "module"
     name = sa.Column(sa.String(50), nullable=False)
+    contentType = sa.Column(sa.String(50), default='text')
     description = sa.Column(sa.Text)
     active = sa.Column(sa.Boolean, default=True)
     project_id = sa.Column(sa.Integer, sa.ForeignKey("project.id"))
@@ -45,7 +46,7 @@ class Module(app.db.Model, SoftDelete, CreateUpdate):
                   str(self.project_id) +
                   '/' +
                   str(self.id) +
-                  '.json', 'r') as f:
+                  '.txt', 'r') as f:
             content = f.read()
         return {
             'id': self.id,
@@ -57,5 +58,8 @@ class Module(app.db.Model, SoftDelete, CreateUpdate):
             'created': self.create,
             'updated': self.update,
             'dependency': dependency,
-            'content': content,
+            'content': {
+                'type': self.contentType,
+                'body': content
+            },
         }

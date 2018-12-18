@@ -586,8 +586,8 @@ def test_view_ok(client):
         '--',
     ]
 
-    assert eval(response.get_json()['content'])['type'] == "text"
-    assert eval(response.get_json()['content'])[
+    assert response.get_json()['content']['type'] == "text"
+    assert response.get_json()['content'][
         'body'] == "reeeeeeeeeeeeeeeeee"
 
 
