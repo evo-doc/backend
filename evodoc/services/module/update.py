@@ -79,8 +79,10 @@ def update(g):
                   str(g.project.id) +
                   '/' +
                   str(g.module.id) +
-                  '.json', 'w+') as file:
-            file.write(str(g.data['content']))
+                  '.txt', 'w+') as file:
+            file.write(str(g.data['content']['body']))
+        if 'type' in g.data['content']:
+            g.module.contentType = g.data['content']['type']
 
     if invalid != []:
         raise DbException(

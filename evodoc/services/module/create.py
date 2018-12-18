@@ -60,6 +60,9 @@ def create(g):
                     ['dependency'])
             g.module.dependencies.append(dependency)
 
+    if 'type' in g.data['content']:
+        g.module.contentType = g.data['content']['type']
+
     app.db.session.add(g.module)
     app.db.session.commit()
 
@@ -68,5 +71,5 @@ def create(g):
               str(g.project.id) +
               '/' +
               str(g.module.id) +
-              '.json', 'w+') as file:
-        file.write(str(g.data['content']))
+              '.txt', 'w+') as file:
+        file.write(str(g.data['content']['body']))
