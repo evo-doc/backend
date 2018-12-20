@@ -23,15 +23,17 @@ def gatherModule(g, currentModule, visitedModules=[]):
               '.txt', 'r') as f:
         content = f.read()
 
+    content = pypandoc.convert_text(
+        content,
+        'html',
+        format=module.contentType)
+
     content = content.split(conf.TAG)
-    # print(content)
+
     for x in range(0, len(content)):
+        print(content[x])
         if x % 2 == 0:
-            if module.contentType != 'text':
-                out += pypandoc.convert_text(
-                    content[x],
-                    'latex',
-                    format=module.contentType)
+            out += content[x]
         else:
             out += gatherModule(g, content[x], visitedModules)
 
@@ -74,7 +76,7 @@ def build(g):
 
     pathlib.Path(path).mkdir(parents=True, exist_ok=True)
     content = gatherModule(g, g.module.name)
-    pypandoc.convert_text(content, 'latex', format='latex',
-                          outputfile=path + "out.pdf")
 
     g.pdf = path+'out.pdf'
+    pypandoc.convert_text(content, 'latex', format='html',
+                          outputfile=g.pdf)
