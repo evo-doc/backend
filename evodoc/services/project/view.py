@@ -8,5 +8,16 @@ def view(g):
 
     if g.project is None:
         raise DbException(404,
-                          "Project doesn't exist.",
+                          "Project doesn't exists.",
                           invalid=['id'])
+
+
+def view_modules(g):
+    project = Project.query.filter(Project.id == g.id).first()
+
+    if project is None:
+        raise DbException(400,
+                          "Project does not exists.",
+                          invalid=['id'])
+
+    return project.modules

@@ -31,7 +31,6 @@ def gatherModule(g, currentModule, visitedModules=[]):
     content = content.split(conf.TAG)
 
     for x in range(0, len(content)):
-        print(content[x])
         if x % 2 == 0:
             out += content[x]
         else:
