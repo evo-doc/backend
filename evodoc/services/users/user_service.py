@@ -3,7 +3,7 @@ from evodoc.exception import DbException, ApiException
 # from flask import g
 import re
 import datetime
-from sqlalchemy.sql.operators import is_
+from sqlalchemy.sql.operators import is_  # noqa F401
 from evodoc import app
 
 
