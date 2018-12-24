@@ -3,6 +3,7 @@ from evodoc.exception import DbException, ApiException
 # from flask import g
 import re
 import datetime
+from sqlalchemy.sql.operators import is_  # noqa F401
 from evodoc import app
 
 
@@ -142,7 +143,8 @@ def user_change_passwd(g):
 def get_user_accessible(g):
     user_up = g.token.user
     result = ProjectListDTO()
-    owned_project = Project.query.filter(Project.owner_id == user_up.id).all()
+    owned_project = Project.query.filter(
+        Project.owner_id == user_up.id, Project.delete.is_(None)).all()
 
     for project in owned_project:
         data = [
@@ -153,8 +155,8 @@ def get_user_accessible(g):
         ]
         result.add_project(data)
 
-    connected = Project.query.filter(Project.contributors.contains(user_up))\
-        .all()
+    connected = Project.query.filter(Project.contributors.contains(user_up),
+                                     Project.delete.is_(None)).all()
 
     for project in connected:
         data = [
