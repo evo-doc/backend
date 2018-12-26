@@ -15,6 +15,10 @@ from evodoc.api.projects.rmContributor import api_rmContributor  # noqa F402
 
 @projects.errorhandler(EvoDocException)
 def __response_err(data):
+    """
+    Error handler for EvoDocExceptions
+        :param data: Exception data
+    """
     return jsonify({
         "message": data.message,
         "invalid": data.invalid

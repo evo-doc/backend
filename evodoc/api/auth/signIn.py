@@ -10,6 +10,10 @@ from evodoc.services.decorators import CreateContext
 @CreateContext()
 @ValidateData(["login", "password"])
 def signIn(g):
+    """
+    Api method for user sign in
+        :param g: context bearing request data
+    """
     login(g)
     return response_ok({
         "token": g.token.token,

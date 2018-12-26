@@ -9,6 +9,10 @@ from evodoc.services.decorators import CreateContext
 @CreateContext()
 @ValidateToken()
 def signOut(g):
+    """
+    Api method for user sign out
+        :param g: context bearing user token
+    """
     logout(g)
     return response_ok({
         "message": "User signed out."

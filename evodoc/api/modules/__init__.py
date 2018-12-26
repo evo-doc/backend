@@ -14,6 +14,10 @@ from evodoc.api.modules.delete import api_delete  # noqa F402
 
 @modules.errorhandler(EvoDocException)
 def __response_err(data):
+    """
+    Error handler for EvoDocExceptions
+        :param data: Exception data
+    """
     return jsonify({
         "message": data.message,
         "invalid": data.invalid

@@ -8,6 +8,10 @@ from evodoc.services.decorators import CreateContext
 @CreateContext()
 @ValidateToken()
 def authenticated(g):
+    """
+    Api method that verifies that given token is valid.
+        :param g: context
+    """
     return response_ok({
         "message": "User is authenticated."
     })

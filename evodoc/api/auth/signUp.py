@@ -10,5 +10,9 @@ from evodoc.services.decorators import CreateContext
 @CreateContext()
 @ValidateData(["email", "password", "username"])
 def signUp(g):
+    """
+    Api method for user sign up
+        :param g: Context bearing request data
+    """
     register(g)
     return response_ok({"token": g.token.token, "username": g.user.name})

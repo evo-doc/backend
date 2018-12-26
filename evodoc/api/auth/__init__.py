@@ -11,6 +11,10 @@ from evodoc.api.auth.signUp import signUp  # noqa F402
 
 @auth.errorhandler(EvoDocException)
 def __response_err(data):
+    """
+    Error handler for EvoDocExceptions
+        :param data: Exception data
+    """
     return jsonify({
         "message": data.message,
         "invalid": data.invalid

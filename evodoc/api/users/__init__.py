@@ -10,6 +10,10 @@ from evodoc.api.users.api_users import *  # noqa F402
 @users.errorhandler(EvoDocException)
 @user.errorhandler(EvoDocException)
 def __response_err(data):
+    """
+    Error handler for EvoDocExceptions
+        :param data:
+    """
     return jsonify({
         "message": data.message,
         "invalid": data.invalid
