@@ -5,6 +5,10 @@ from evodoc.exception.dbException import DbException
 
 
 def rmContributor(g):
+    """
+    Removes project contributor
+        :param g: context
+    """
     g.project = Project.query.get_or(g.id)
     if g.project is None:
         raise DbException(404,

@@ -4,6 +4,10 @@ from evodoc.exception import ApiException
 
 
 def view(g):
+    """
+    Saves instance of module to g
+        :param g: context
+    """
     g.module = Module.query.get_active(g.id)
     if g.module is None:
         raise ApiException(

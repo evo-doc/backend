@@ -7,6 +7,12 @@ import pathlib
 
 
 def gatherModule(g, currentModule, visitedModules=[]):
+    """
+    Recursively builds module
+        :param g: context
+        :param currentModule: module name
+        :param visitedModules=[]: list of visited modules
+    """
     out = ''
     visitedModules.append(currentModule)
     module = Module.query.filter_by(project_id=g.project.id,
@@ -40,6 +46,10 @@ def gatherModule(g, currentModule, visitedModules=[]):
 
 
 def build(g):
+    """
+    Builds pdf from module and adds the path to product to context (g)
+        :param g: context
+    """
     g.module = Module.query.get_active(g.id)
     if g.module is None:
         raise ApiException(

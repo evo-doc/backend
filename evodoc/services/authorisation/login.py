@@ -5,6 +5,10 @@ from evodoc import app
 
 
 def login(g):
+    """
+    User login
+        :param g: context
+    """
     g.user = User.query.getByNameOrEmail(g.data["login"])
 
     if g.user is None\

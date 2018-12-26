@@ -4,6 +4,10 @@ from evodoc.exception import DbException
 
 
 def view(g):
+    """
+    Returns list of modules in project
+        :param g: context
+    """
     g.project = Project.query.get_active(g.id)
 
     if g.project is None:

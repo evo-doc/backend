@@ -4,6 +4,10 @@ from evodoc.models.project import Project
 
 
 def get_stats(g):
+    """
+    Returns stats
+        :param g: context
+    """
     users = User.query.get_all().count()
     packages = Package.query.get_all().count()
     projects = Project.query.get_all().count()

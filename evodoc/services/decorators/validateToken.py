@@ -5,6 +5,12 @@ from evodoc.exception import ApiException
 
 
 class ValidateToken(object):
+    """
+    Token validator (function wrapper)
+    Checks if token is provided in request header, and if its valid.
+    If it is saves instance of token to context (g) if not raises exception.
+    """
+
     def __call__(self, f):
         def wrapper(g, *args, **kwargs):
             header = request.headers.get('Authorization')

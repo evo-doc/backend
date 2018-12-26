@@ -7,6 +7,10 @@ from evodoc.conf import FILE_PATH
 
 
 def update(g):
+    """
+    Updates module by data provided in g.data
+        :param g: context
+    """
     invalid = []
     g.module = Module.query.get_active(g.id)
     if g.module is None:

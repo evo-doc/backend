@@ -6,6 +6,10 @@ import datetime
 
 
 def project_delete(g):
+    """
+    Deletes project
+        :param g: context
+    """
     g.project = Project.query.get_active(g.id)
 
     if g.project is None:
