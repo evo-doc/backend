@@ -35,7 +35,7 @@ def update(g):
                 ['project'])
 
     if 'name' in g.data:
-        if (not re.match('^[A-z0-9\_\-\ ]{2,}$', g.data['name'].strip()) or  # noqa W605
+        if not (re.match('^[A-z0-9\_\-\ ]{2,}$', g.data['name'].strip()) or  # noqa W605
             Module.query.filter_by(
                 project_id=g.project.id, name=g.data['name']).first()
             is not (None or g.module)):
