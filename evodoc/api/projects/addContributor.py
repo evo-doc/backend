@@ -11,6 +11,11 @@ from evodoc.services.decorators import CreateContext
 @ValidateToken()
 @ValidateData(['username'])
 def api_addContributor(g, id):
+    """
+    Api method for adding projet contributor
+        :param g: context
+        :param id: module id
+    """
     g.id = id
     addContributor(g)
     return response_ok({

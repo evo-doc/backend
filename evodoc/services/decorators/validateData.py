@@ -3,6 +3,11 @@ from evodoc.exception import ApiException
 
 
 class ValidateData(object):
+    """
+    Data validator (function wrapper)
+    Checks if expected values are present, if not raises exception.
+    """
+
     def __init__(self, expected_values):
         self.expected_values = expected_values
 

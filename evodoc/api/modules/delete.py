@@ -10,6 +10,11 @@ from evodoc.services.decorators import CreateContext
 @CreateContext()
 @ValidateToken()
 def api_delete(g, id):
+    """
+    Api method for module deletion
+        :param g: context
+        :param id: module id
+    """
     g.id = id
     module_delete(g)
     return response_ok({

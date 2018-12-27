@@ -8,6 +8,10 @@ from evodoc.exception.dbException import DbException
 
 
 def create(g):
+    """
+    Creates project
+        :param g: context
+    """
     if (not re.match('^[A-z0-9\_\-\ ]{2,}$', g.data['name'].strip())):  # noqa W605
         raise DbException(400,
                           "Project name is too short.",

@@ -6,6 +6,10 @@ import re
 
 
 def register(g):
+    """
+    User registration
+        :param g: context
+    """
     invalid = []
     if (not re.match('^[A-z0-9\_\-]{3,}$', g.data["username"]) or  # noqa W605
             User.query.getByName(g.data["username"], False) is not None):

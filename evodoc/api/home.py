@@ -10,6 +10,10 @@ homeprint = Blueprint("home", __name__)
 
 @homeprint.errorhandler(EvoDocException)
 def __response_err(data):
+    """
+    Error handler
+        :param data: exception data
+    """
     return jsonify({
         "message": data.message,
         "invalid": data.invalid
@@ -19,6 +23,10 @@ def __response_err(data):
 @homeprint.route('/')
 @CreateContext()
 def home(g):
+    """
+    Home api method for testing purposes
+        :param g: context
+    """
     return jsonify("Hello there")
 
 
@@ -26,4 +34,8 @@ def home(g):
 @CreateContext()
 @ValidateToken()
 def stats(g):
+    """
+    Api method for listing statistics
+        :param g: context
+    """
     return response_ok(get_stats(g))

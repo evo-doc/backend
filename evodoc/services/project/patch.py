@@ -6,6 +6,10 @@ from evodoc.exception.dbException import DbException
 
 
 def patch(g):
+    """
+    Updates project
+        :param g: context
+    """
     g.project = Project.query.get_active(g.id)
 
     if g.project is None:
