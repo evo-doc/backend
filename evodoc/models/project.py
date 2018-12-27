@@ -14,7 +14,7 @@ class Project(app.db.Model, SoftDelete, CreateUpdate):
     active = sa.Column(sa.Boolean, default=True)
     modules = app.db.relationship(
         'Module', primaryjoin='and_(Module.project_id==Project.id, '
-            'Module.delete.is_(None))')
+                              'Module.delete.is_(None))')
     owner_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"))
     contributors = app.db.relationship('User', secondary=ProjectToUser,
                                        lazy='subquery',
