@@ -13,7 +13,8 @@ class Project(app.db.Model, SoftDelete, CreateUpdate):
     description = sa.Column(sa.Text)
     active = sa.Column(sa.Boolean, default=True)
     modules = app.db.relationship(
-        'Module', backref='master_project', lazy=True)
+        'Module', primaryjoin='and_(Module.project_id==Project.id, '
+            'Module.delete.is_(None))')
     owner_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"))
     contributors = app.db.relationship('User', secondary=ProjectToUser,
                                        lazy='subquery',
