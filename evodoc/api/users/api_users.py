@@ -13,6 +13,10 @@ from evodoc.services.decorators import CreateContext
 @CreateContext()
 @ValidateToken()
 def get_all(g):
+    """
+    Api method for listing all users
+        :param g: context
+    """
     return response_ok(get_users(g))
 
 
@@ -20,6 +24,11 @@ def get_all(g):
 @CreateContext()
 @ValidateToken()
 def get_account(g, username):
+    """
+    Api method for viewing public user data
+        :param g: context
+        :param username:
+    """
     user = User.query.getByName(username, False)
     if user is None:
         raise ApiException(
@@ -31,6 +40,10 @@ def get_account(g, username):
 @CreateContext()
 @ValidateToken()
 def get_my_account(g):
+    """
+    Api method for viewing user data
+        :param g: context
+    """
     return response_ok_obj(g.token.user)
 
 
@@ -38,6 +51,10 @@ def get_my_account(g):
 @CreateContext()
 @ValidateToken()
 def edit_own_account(g):
+    """
+    Api method for editing user account
+        :param g: context
+    """
     data = request.get_json()
     return response_ok_obj(update_user(g, data))
 
@@ -46,6 +63,10 @@ def edit_own_account(g):
 @CreateContext()
 @ValidateToken()
 def delete_own_account(g):
+    """
+    Api method for deleting user account
+        :param g: context
+    """
     return response_ok(delete_current_user(g))
 
 
@@ -54,6 +75,10 @@ def delete_own_account(g):
 @ValidateToken()
 @ValidateData(['old_password', 'new_password'])
 def change_password(g):
+    """
+    Api method for changing password
+        :param g: context
+    """
     return response_ok(user_change_passwd(g))
 
 
@@ -62,4 +87,8 @@ def change_password(g):
 @ValidateToken()
 @ValidateData(['limit'])
 def get_accessible_project(g):
+    """
+    Api method for listing all accessible projects
+        :param g: context
+    """
     return response_ok(get_user_accessible(g))

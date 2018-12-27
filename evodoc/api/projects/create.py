@@ -11,5 +11,9 @@ from evodoc.services.decorators import CreateContext
 @ValidateToken()
 @ValidateData(["name", "description", "collaborators"])
 def api_create(g):
+    """
+    Api method for creating new project
+        :param g: context
+    """
     create(g)
     return response_ok_obj(g.project)

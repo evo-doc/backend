@@ -6,6 +6,10 @@ import datetime
 
 
 def module_delete(g):
+    """
+    Module deletion
+        :param g: context
+    """
     g.module = Module.query.get_active(g.id)
     if g.module is None:
         raise ApiException(

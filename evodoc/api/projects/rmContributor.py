@@ -11,6 +11,11 @@ from evodoc.services.decorators import CreateContext
 @ValidateToken()
 @ValidateData(['username'])
 def api_rmContributor(g, id):
+    """
+    Api method for removing projet contributor
+        :param g: context
+        :param id: module id
+    """
     g.id = id
     rmContributor(g)
     return response_ok({

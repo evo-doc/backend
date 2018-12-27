@@ -10,6 +10,11 @@ from evodoc.services.decorators import CreateContext
 @CreateContext()
 @ValidateToken()
 def api_view(g, id):
+    """
+    Api method for viewing project
+        :param g: context
+        :param id: module id
+    """
     g.id = id
     view(g)
     return response_ok_obj(g.project)
@@ -19,5 +24,10 @@ def api_view(g, id):
 @CreateContext()
 @ValidateToken()
 def api_view_modules(g, id):
+    """
+    Api method for listing project modules
+        :param g: context
+        :param id: module id
+    """
     g.id = id
     return response_ok_list(view_modules(g))

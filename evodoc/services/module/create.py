@@ -7,6 +7,10 @@ from evodoc import app
 
 
 def create(g):
+    """
+    Creates module
+        :param g: context
+    """
     invalid = []
     g.project = Project.query.get_active(g.data['project'])
     if g.project is None:

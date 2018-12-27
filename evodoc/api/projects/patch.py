@@ -10,6 +10,11 @@ from evodoc.services.decorators import CreateContext
 @CreateContext()
 @ValidateToken()
 def api_patch(g, id):
+    """
+    Api method for updating project
+        :param g: context
+        :param id: module id
+    """
     g.id = id
     g.data = request.get_json()
     patch(g)
