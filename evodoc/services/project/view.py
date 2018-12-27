@@ -17,7 +17,8 @@ def view(g):
 
 
 def view_modules(g):
-    project = Project.query.filter(Project.id == g.id).first()
+    project = Project.query.filter(
+        Project.id == g.id, Project.delete.is_(None)).first()
 
     if project is None:
         raise DbException(400,

@@ -159,9 +159,10 @@ def get_user_accessible(g):
                                      Project.delete.is_(None)).all()
 
     for project in connected:
+        owner = User.query.getById(project.owner_id)
         data = [
             project.id,
-            user_up.name,
+            owner.name,
             project.name,
             project.description,
         ]
