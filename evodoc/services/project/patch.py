@@ -19,9 +19,9 @@ def patch(g):
 
     if g.data is None or g.data == {}:
         return
-
+    pattern = re.compile(r'^[\w\s\-\_]{2,}$', re.U)
     if ((g.data["name"] is not None) and  # noqa W605
-            (not re.match('^[A-z0-9\_\-\ ]{2,}$', g.data["name"]))):
+            (not re.match(pattern, g.data["name"]))):
         raise DbException(400,
                           "Project name is too short.",
                           invalid=['name'])
