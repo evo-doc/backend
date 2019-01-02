@@ -37,9 +37,9 @@ def update(g):
                 403,
                 "Access denied (no rights)",
                 ['project'])
-
+    pattern = re.compile(r'^[\w\s\-\_]{2,}$', re.U)
     if 'name' in g.data:
-        if ((not re.match('^[A-z0-9\_\-\ ]{2,}$', g.data['name'].strip())) or  # noqa W605
+        if ((not re.match(pattern, g.data['name'].strip())) or  # noqa W605
             Module.query.filter_by(
                 project_id=g.project.id, name=g.data['name']).first()
             not in [None, g.module]):
